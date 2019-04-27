@@ -14,4 +14,13 @@ router.get('/', (req, res) =>
     .catch(err => console.log(err))
   );
 
+// router.get('/', (req, res) => {
+//   User.getTableName()
+//     .then(table => {
+//       console.log('this is our table name', table)
+//       res.sendStatus(200);
+//     })
+//     .catch(err => console.log(err))
+// })
+
 module.exports = router;
