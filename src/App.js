@@ -7,17 +7,17 @@ class App extends Component {
 
   componentDidMount() {
     //call our backend
-    this.callBackendAPI()
+    this.handleConnectToBackend()
       .then(res => this.setState({ data: res.express }))
       .catch(err => console.log(err));
   }
 
-  callBackendAPI = async () => {
-    const response = await fetch('/express');
-    const body = await response.json();
+  handleConnectToBackend = async () => {
+    const res = await fetch('/');
+    const body = await res.json();
 
-    if (response.status !== 200) {
-      throw Error(body.message);
+    if (res.status !== 200) {
+      throw Error(body.message)
     }
     return body;
   }
