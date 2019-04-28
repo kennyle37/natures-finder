@@ -15,6 +15,14 @@ db
     console.error('Unable to connect to database:', err);
   });
 
+//create our table when we connect to db
+db
+  .sync()
+  .then(() => console.log('DATABASE SYNCED!'))
+  .catch(err => {
+    console.error('Unable to sync database', err);
+  })
+
 const app = express();
 
 app.get('/', (req,res) => {
