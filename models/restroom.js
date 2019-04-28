@@ -1,33 +1,41 @@
-// const Sequelize = require('sequelize');
-// const db = require('../config/db');
+const Sequelize = require('sequelize');
+const db = require('../config/db');
 
-// const Restroom = db.define('Restroom', {
-//   // avg_rating: {
+const Payment = require('./payment');
 
-//   // },
-//   name: {
-//     type: Sequelize.STRING,
-//     // validate: {
-//     //   is: ["^[a-z]+$",'i'], //only allow letters
-//     //   notEmpty: true, 
-//     // }
-//   },
-//   orientation: {
-//     type: Sequelize.STRING,
-//   },
-//   payment_requirement: {
-//     type: Sequelize.BOOLEAN,
-//   },
-//   payment_id: {
+const Restroom = db.define('Restroom', {
+  // avg_rating: {
 
-//   },
-//   review_id: {
+  // },
+  name: {
+    type: Sequelize.STRING,
+    // validate: {
+    //   is: ["^[a-z]+$",'i'], //only allow letters
+    //   notEmpty: true, 
+    // }
+  },
+  orientation: {
+    type: Sequelize.STRING,
+  },
+  payment_requirement: {
+    type: Sequelize.BOOLEAN,
+  },
+  payment_id: {
 
-//   },
-//   restroom_type: {
-//     type: Sequelize.STRING,
-//     // validate: {
-//     //   isArray: true,
-//     // }
-//   }
-// })
+  },
+  review_id: {
+
+  },
+  restroom_type: {
+    type: Sequelize.STRING,
+    // validate: {
+    //   isArray: true,
+    // }
+  }
+})
+
+Restroom.hasOne(Payment, {
+  foreignKey: "restroom_id"
+})
+
+module.exports = Restroom;

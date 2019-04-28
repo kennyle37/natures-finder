@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-const Address = require('../models/address');
+const Address = require('./address');
 
 const User = db.define('User', {
     email: {

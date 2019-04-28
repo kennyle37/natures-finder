@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-const City = require('../models/city');
-const State = require('../models/state');
+const City = require('./city');
+const State = require('./state');
 
 const Address = db.define('Address', {
     address: {

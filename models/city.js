@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-const State = require('../models/state');
+const State = require('./state');
 
 const City = db.define('City', {
     name: {
@@ -17,9 +17,10 @@ const City = db.define('City', {
 )
 
 //Connect city to State
+//create state_id in City
 City.belongsTo(State, {
   foreignKey: 'state_id',
   targetKey: 'id'
-}) //create state_id in City
+}) 
 
 module.exports = City;
