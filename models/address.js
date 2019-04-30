@@ -7,9 +7,9 @@ const State = require('./state');
 const Address = db.define('address', {
     address: {
       type: Sequelize.STRING,
-      // validate: {
-      //   notEmpty: true
-      // }
+      validate: {
+        notEmpty: true
+      }
     },
     address_2: {
       type: Sequelize.STRING

@@ -9,10 +9,10 @@ const Restroom = db.define('restroom', {
   // },
   name: {
     type: Sequelize.STRING,
-    // validate: {
-    //   is: ["^[a-z]+$",'i'], //only allow letters
-    //   notEmpty: true, 
-    // }
+    validate: {
+      is: ["^[a-z]+$",'i'], //only allow letters
+      notEmpty: true, 
+    }
   },
   orientation: {
     type: Sequelize.STRING,

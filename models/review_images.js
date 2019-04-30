@@ -3,7 +3,7 @@ const db = require('../config/db');
 
 const Review = require('./review')
 
-const Review_Images = db.define('Review_Images', {
+const Review_Images = db.define('review_images', {
   img_src: {
     type: Sequelize.STRING
   }

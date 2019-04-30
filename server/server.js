@@ -4,19 +4,18 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const db = require('../config/db');
-const Payment = require('../models/payment');
-const Restroom = require('../models/restroom');
+const models = require('../models');
 
 //authenticate and connect to db
 db
   .authenticate()
   .then(() => {
     console.log('Success! Database connected');
-    db.sync().then(() => {
+    db.sync({ force: true }).then(() => {
       console.log('db synced!')
     })
     .catch(err => {
-      console.error('could not sync db', db);
+      console.error('could not sync db', err);
     })
   })
   .catch(err => {
