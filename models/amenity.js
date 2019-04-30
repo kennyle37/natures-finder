@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-const Amenities = db.define('Amenities', {
+const Amenity = db.define('amenity', {
   type: {
     type: Sequelize.STRING
   }
 })
 
-module.exports = Amenities;
+module.exports = Amenity;

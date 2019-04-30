@@ -3,7 +3,7 @@ const db = require('../config/db');
 
 const Payment = require('./payment');
 
-const Restroom = db.define('Restroom', {
+const Restroom = db.define('restroom', {
   // avg_rating: {
 
   // },
@@ -20,12 +20,6 @@ const Restroom = db.define('Restroom', {
   payment_requirement: {
     type: Sequelize.BOOLEAN,
   },
-  payment_id: {
-
-  },
-  review_id: {
-
-  },
   restroom_type: {
     type: Sequelize.STRING,
     // validate: {
@@ -34,8 +28,8 @@ const Restroom = db.define('Restroom', {
   }
 })
 
-Restroom.hasOne(Payment, {
-  foreignKey: "restroom_id"
-})
+// Restroom.hasOne(Payment, {
+//   foreignKey: "restroom_id"
+// })
 
 module.exports = Restroom;

@@ -4,7 +4,7 @@ const db = require('../config/db');
 const City = require('./city');
 const State = require('./state');
 
-const Address = db.define('Address', {
+const Address = db.define('address', {
     address: {
       type: Sequelize.STRING,
       // validate: {

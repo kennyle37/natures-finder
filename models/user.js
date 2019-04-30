@@ -3,7 +3,7 @@ const db = require('../config/db');
 
 const Address = require('./address');
 
-const User = db.define('User', {
+const User = db.define('user', {
     email: {
       type: Sequelize.STRING,
       validate: {
@@ -24,9 +24,6 @@ const User = db.define('User', {
         notEmpty: true
       }
     }
-    // reviews_id: {
-
-    // }
   }, 
   {
     underscored: true
@@ -35,6 +32,6 @@ const User = db.define('User', {
 
 //connects user to Address
 //insert Address_id to User
-User.belongsTo(Address, {as: 'Address', foreignKey: 'address_id'}); 
+User.belongsTo(Address, {as: 'Address', foreignKey: 'address_id'});
 
-module.exports = User;
+module.exports = User; 

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-const Payment = db.define('Payment', {
+const Payment = db.define('payment', {
   payment_type: {
     type: Sequelize.STRING,
   },

@@ -3,7 +3,7 @@ const db = require('../config/db');
 
 const Review = require('./review');
 
-const Rating = db.define('Rating', {
+const Rating = db.define('rating', {
   rating: {
     type: Sequelize.INTEGER
   }

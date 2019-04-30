@@ -3,7 +3,7 @@ const db = require('../config/db');
 
 const User = require('./user');
 
-const Review = db.define('Review', {
+const Review = db.define('review', {
   title: {
     type: Sequelize.STRING
   },
