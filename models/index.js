@@ -1,25 +1,23 @@
-const address = require('../models/address');
-const amenity = require('../models/amenity');
-const city = require('../models/city');
-const payment = require('../models/payment');
-const rating = require('../models/rating');
-const restroom_amenities = require('../models/restroom_amenities');
-const restroom = require('../models/restroom');
-const review_images = require('../models/review_images');
-const review = require('../models/review');
-const state = require('../models/state');
-const user = require('../models/user');
+const address = require('./address');
+const city = require('./city');
+const state = require('./state');
+const user = require('./user');
+const country = require('./country');
+const order = require('./order');
+const dish = require('./dish');
+const restaurant = require('./restaurant');
+const food_category = require('./food_category');
+const dining_category = require('./dining_category');
 
 module.exports = {
   address,
-  amenity,
   city,
-  payment,
-  rating,
-  restroom_amenities,
-  restroom,
-  review_images,
-  review,
   state,
-  user
+  country,
+  user,
+  order,
+  dish,
+  restaurant,
+  food_category,
+  dining_category,
 }

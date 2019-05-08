@@ -1,13 +1,20 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
+const Country = require('./country');
+
 const State = db.define('state', {
-  name: {
+  state_name: {
     type: Sequelize.STRING,
     validate: {
       notEmpty: true
     }
   },
+})
+
+State.belongsTo(Country, {
+  foreignKey: 'country_id',
+  targetKey: 'id'
 })
 
 module.exports = State;
