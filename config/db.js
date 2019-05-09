@@ -1,7 +1,7 @@
 //create new instance of sequelize
 const Sequelize = require('sequelize');
 
-module.exports = new Sequelize('natures', 'postgres' , '111', {
+module.exports = new Sequelize('journal', 'postgres' , '111', {
   host: "localhost",
   dialect: 'postgres',
   pool: {

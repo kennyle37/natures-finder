@@ -8,6 +8,7 @@ const dish = require('./dish');
 const restaurant = require('./restaurant');
 const food_category = require('./food_category');
 const dining_category = require('./dining_category');
+const user_restaurant_order = require('./user_restaurant_order');
 
 module.exports = {
   address,
@@ -20,4 +21,5 @@ module.exports = {
   restaurant,
   food_category,
   dining_category,
+  user_restaurant_order
 }
