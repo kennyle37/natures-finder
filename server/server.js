@@ -35,6 +35,15 @@ app.listen(PORT, () => {
 })
 
 //routes for our User
-app.use('/user', require('../routes/user'))
+app.use('/user', require('../routes/user'));
+
+//routes for our Address
+app.use('/address', require('../routes/address'));
+
+//routes for our Order
+app.use('/order', require('../routes/order'));
+
+//routes for our Restaurant
+app.use('/restaurant', require('../routes/restaurant'));
 
 
