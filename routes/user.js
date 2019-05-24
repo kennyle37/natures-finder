@@ -19,22 +19,76 @@ router.get('/', (req, res) =>
     .catch(err => console.log(err))
   );
 
-//create a user
+//find a user, if they don't exist, create them.
 router.post('/create', (req, res) => {
-  const user = new User(req.query);
-  console.log('this is req.query', req.query)
-  user.save()
-    .then(user => {
-      res.json('User added!');
+  User.findOrCreate({ 
+    where: { 
+      email: req.query.email,
+    },
+    defaults: { 
+      first_name: req.query.first_name,
+      last_name: req.query.last_name
+    }
+  })
+    .spread((user, created) => {
+      console.log(user.get({
+        plain: true
+      }))
+      if (created) {
+        res.json('User added!');
+      } else {
+        res.json('Email already in use!');
+      }
     })
     .catch(err => {
-      res.status(400).send('Unable to save')
+      res.status(400).send('Unable to create user')
+      console.log(err)
     })
-});
-
+})
 
 //update a user
+router.post('/update', (req, res) => {
+  User.findOne({
+    where: {
+      email: req.query.original_email
+    }
+  }).then(user => {
+    user.update({
+      email: req.query.updated_email,
+      first_name: req.query.first_name,
+      last_name: req.query.last_name
+    })
+    .then(user => {
+      res.json('User is now updated')
+    })
+  })
+    .catch(err => {
+      res.status(400).send('Unable to update user!')
+      console.log(err)
+    })
+
+})
 
 //delete a user
+router.delete('/delete', (req, res) => {
+  User.findOne({ 
+    where: { 
+      email: req.query.email 
+    }
+  })
+    .then(user => {
+      if (user) {
+        user.destroy().then(user => {
+          res.json('User deleted sucessfully!')
+        })
+      } else {
+        res.json('Unable to delete user, user does not exist')
+      }
+    })
+    .catch(err => {
+      res.status(400).send('Unable to delete user!')
+      console.log(err)
+    })
+})
 
 module.exports = router;
