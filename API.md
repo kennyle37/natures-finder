@@ -2,7 +2,9 @@
 
 ### get
 ### /user
+
 Find all users
+
 -----
 
 ### get
