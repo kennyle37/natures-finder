@@ -2,12 +2,10 @@
 
 ## get
 ### /user
------
 Find all users
 
 ## get
 ### /user/search
------
 Find one user by their email
 
 | Fields  | Type   | 
@@ -16,7 +14,6 @@ Find one user by their email
 
 ## post
 ### /user/create
------
 Create a user
 
 | Fields  | Type   | 
@@ -27,7 +24,6 @@ Create a user
 
 ## post
 ### /user/update
------
 Search a user by their original email and then update their profile
 
 | Fields  | Type   | 
@@ -39,7 +35,6 @@ Search a user by their original email and then update their profile
 
 ## delete
 ### /user/delete
------
 Search a user by their email and delete them
 
 | Fields  | Type   | 
