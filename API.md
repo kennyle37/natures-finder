@@ -7,7 +7,8 @@ payload
 
 ## get
 ### /search
----------Find user by their email
+-----
+Find user by their email
 
 | Fields  | Type   | 
 | --------|:------:| 
