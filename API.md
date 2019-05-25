@@ -1,6 +1,6 @@
 # USER API
 
-## get
+### get
 ### /user
 Find all users
 
@@ -12,7 +12,7 @@ Find one user by their email
 | --------|:------:| 
 | email   | string | 
 
-## post
+### post
 ### /user/create
 Create a user
 
@@ -22,7 +22,7 @@ Create a user
 | first_name   | string | 
 | last_name   | string | 
 
-## post
+### post
 ### /user/update
 Search a user by their original email and then update their profile
 
@@ -33,7 +33,7 @@ Search a user by their original email and then update their profile
 | first_name   | string | 
 | last_name   | string | 
 
-## delete
+### delete
 ### /user/delete
 Search a user by their email and delete them
 
