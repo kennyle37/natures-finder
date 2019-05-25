@@ -1,5 +1,5 @@
-### `'/user/create`
+### USER API
 
-"email": STRING, must be a valid email
-"first_name": STRING
-"last_name": STRING
+> "email": STRING, must be a valid email
+> "first_name": STRING
+> "last_name": STRING
