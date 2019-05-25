@@ -1,7 +1,10 @@
-### USER API
+# USER API
 
-> "email": STRING, must be a valid email
+method
+link
+description
+payload
 
-> "first_name": STRING
-
-> "last_name": STRING
+| Fields  | Type   | 
+| --------|:------:| 
+| email   | string | 
