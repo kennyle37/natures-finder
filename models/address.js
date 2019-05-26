@@ -14,10 +14,10 @@ const Address = db.define('address', {
     address_2: {
       type: Sequelize.STRING
     },
-    zip: {
-      type: Sequelize.STRING,
+    zipcode: {
+      type: Sequelize.INTEGER,
       validate: {
-        NotEmpty: true,
+        notEmpty: true,
         is: /^[0-9]*$/
       }
     },

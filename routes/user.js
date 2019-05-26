@@ -13,9 +13,7 @@ get '/' will refer to /user
 router.get('/', (req, res) => 
   User.findAll()
     .then(users => {
-      console.log('these are the users', users.get({
-        plain: true
-      }));
+      console.log('these are the users', users);
       res.sendStatus(200);
     })
     .catch(err => console.log(err))
@@ -62,12 +60,12 @@ router.post('/create', (req, res) => {
     })
     .catch(err => {
       res.status(400).send('Unable to create user')
-      console.log(err)
+      console.error(err)
     })
 })
 
 //update a user
-router.post('/update', (req, res) => {
+router.patch('/', (req, res) => {
   User.findOne({
     where: {
       email: req.query.original_email
@@ -86,11 +84,10 @@ router.post('/update', (req, res) => {
       res.status(400).send('Unable to update user!')
       console.log(err)
     })
-
 })
 
 //delete a user
-router.delete('/delete', (req, res) => {
+router.delete('/', (req, res) => {
   User.findOne({ 
     where: { 
       email: req.query.email 

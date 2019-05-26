@@ -29,8 +29,8 @@ Create a user
 
 -----
 
-### post
-### /user/update
+### patch
+### /user
 Search a user by their original email and then update their profile
 
 | Fields  | Type   | 
@@ -43,7 +43,7 @@ Search a user by their original email and then update their profile
 -----
 
 ### delete
-### /user/delete
+### /user
 Search a user by their email and delete them
 
 | Fields  | Type   | 
