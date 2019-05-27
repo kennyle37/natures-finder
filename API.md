@@ -61,7 +61,7 @@ Find all address
 
 ### get
 ### /address/search
-Find one user by their email
+Find one address by their address
 
 | Fields  | Type   | 
 | --------|:------:| 
@@ -71,7 +71,7 @@ Find one user by their email
 
 ### post
 ### /address/create
-Create a user
+Create an address
 
 | Fields  | Type   | 
 | --------|:------:| 
@@ -83,7 +83,7 @@ Create a user
 
 ### patch
 ### /address
-Search a user by their original email and then update their profile
+Search a address by their old address and then update 
 
 | Fields  | Type   | 
 | --------|:------:| 
@@ -96,7 +96,7 @@ Search a user by their original email and then update their profile
 
 ### delete
 ### /address
-Search a user by their email and delete them
+Search an address and delete it
 
 | Fields  | Type   | 
 | --------|:------:| 
