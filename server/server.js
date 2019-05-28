@@ -46,4 +46,7 @@ app.use('/order', require('../routes/order'));
 //routes for our Restaurant
 app.use('/restaurant', require('../routes/restaurant'));
 
+//routes for our state
+app.use('/state', require('../routes/state'));
+
 

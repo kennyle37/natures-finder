@@ -9,4 +9,14 @@ since /order is being pointed to this file,
 get '/' will refer to /order
 */
 
+//find all /order 
+
+//find one /order 
+
+//create a /order 
+
+//update a /order 
+
+//delete a /order 
+
 module.exports = router;

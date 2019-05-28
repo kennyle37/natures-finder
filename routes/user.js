@@ -13,10 +13,13 @@ get '/' will refer to /user
 router.get('/', (req, res) => 
   User.findAll()
     .then(users => {
-      console.log('these are the users', users);
+      console.log('These are the users', users);
       res.sendStatus(200);
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      res.status(400).send('Unable to find users');
+      console.log(err)
+    })
   );
 
 //find one user by email
