@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const User = require('../models/user');
@@ -9,12 +10,28 @@ since /user is being pointed to this file,
 get '/' will refer to /user
 */
 
+//Convert user object into json format for postman
+function serializeUser (req, user) {
+  const { id, email, first_name, last_name, createdAt, updatedAt, address_id } = user;
+  
+  return {
+    id,
+    email,
+    first_name,
+    last_name,
+    createdAt,
+    updatedAt,
+    address_id
+  }
+}
+
 //find all users
 router.get('/', (req, res) => 
   User.findAll()
     .then(users => {
-      console.log('These are the users', users);
-      res.sendStatus(200);
+      serialize(req, users, serializeUser).then(json => {
+        res.status(200).send(json);
+      })
     })
     .catch(err => {
       res.status(400).send('Unable to find users');
@@ -30,10 +47,9 @@ router.get('/search', (req, res) => {
     }
   })
   .then(user => {
-    console.log('User found!', user.get({
-      plain: true
-    }));
-    res.sendStatus(200);
+    serialize(req, user, serializeUser).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to find user', err);
@@ -56,7 +72,7 @@ router.post('/create', (req, res) => {
         plain: true
       }))
       if (created) {
-        res.json('User added!');
+        res.json('User Sucessfully Added');
       } else {
         res.json('Email already in use!');
       }
@@ -80,7 +96,9 @@ router.patch('/', (req, res) => {
       last_name: req.query.last_name
     })
     .then(user => {
-      res.json('User is now updated');
+      serialize(req, user, serializeUser).then(json => {
+        res.status(200).send(json);
+      })
     })
   })
     .catch(err => {

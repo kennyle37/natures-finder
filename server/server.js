@@ -35,18 +35,18 @@ app.listen(PORT, () => {
 })
 
 //routes for our User
-app.use('/user', require('../routes/user'));
+app.use('/api/user', require('../routes/user'));
 
 //routes for our Address
-app.use('/address', require('../routes/address'));
+app.use('/api/address', require('../routes/address'));
 
 //routes for our Order
-app.use('/order', require('../routes/order'));
+app.use('/api/order', require('../routes/order'));
 
 //routes for our Restaurant
-app.use('/restaurant', require('../routes/restaurant'));
+app.use('/api/restaurant', require('../routes/restaurant'));
 
 //routes for our state
-app.use('/state', require('../routes/state'));
+app.use('/api/state', require('../routes/state'));
 
 
