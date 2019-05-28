@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   state.findAll()
     .then(states => {
       console.log('These are our states', states);
-      res.sendStatus(200);
+      res.status(200).send('These are our states');
     })
     .catch(err => {
       res.status(400).send('Unable to find states', err);
@@ -32,7 +32,7 @@ router.get('/search', (req, res) => {
     console.log('This is our state', state.get({
       plain:true
     }))
-    res.status(200).send('Found state!');
+    res.status(200).send('Found state!', state);
   })
   .catch(err => {
     res.status(400).send('Unable to find state');

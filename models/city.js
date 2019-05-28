@@ -4,7 +4,7 @@ const db = require('../config/db');
 const State = require('./state');
 
 const City = db.define('city', {
-    name: {
+    city_name: {
       type: Sequelize.STRING,
       validate: {
         notEmpty: true

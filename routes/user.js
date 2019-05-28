@@ -18,7 +18,7 @@ router.get('/', (req, res) =>
     })
     .catch(err => {
       res.status(400).send('Unable to find users');
-      console.log(err)
+      console.log(err);
     })
   );
 
@@ -80,12 +80,12 @@ router.patch('/', (req, res) => {
       last_name: req.query.last_name
     })
     .then(user => {
-      res.json('User is now updated')
+      res.json('User is now updated');
     })
   })
     .catch(err => {
-      res.status(400).send('Unable to update user!')
-      console.log(err)
+      res.status(400).send('Unable to update user!');
+      console.log(err);
     })
 })
 
