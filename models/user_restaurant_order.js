@@ -10,7 +10,7 @@ const User_Restaurant_Order = db.define('user_restaurant_orders', {}, {
 });
 
 Restaurant.belongsToMany(User, {
-  through: User_Restaurant_Order
+  through: User_Restaurant_Order,
 })
 
 User.belongsToMany(Restaurant, {

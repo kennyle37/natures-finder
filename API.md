@@ -18,7 +18,7 @@ Find one user by their email
 -----
 
 ### post
-### /user/create
+### /user
 Create a user
 
 | Fields  | Type   | 
@@ -37,8 +37,8 @@ Search a user by their original email and then update their profile
 | --------|:------:| 
 | original_email (required)  | string | 
 | updated_email   | string | 
-| first_name   | string | 
-| last_name   | string | 
+| updated_first_name   | string | 
+| updated_last_name   | string | 
 
 -----
 
@@ -66,11 +66,13 @@ Find one address by their address
 | Fields  | Type   | 
 | --------|:------:| 
 | address_1 (required)  | string | 
+| address_2 (required)  | string | 
+| zipcode (required)  | int | 
 
 -----
 
 ### post
-### /address/create
+### /address
 Create an address
 
 | Fields  | Type   | 
@@ -87,10 +89,12 @@ Search a address by their old address and then update
 
 | Fields  | Type   | 
 | --------|:------:| 
-| oldAddress_1 (required)  | string | 
-| address_1   | string | 
-| address_2   | string | 
-| zipcode   | int | 
+| original_address_1 (required)  | string | 
+| original_address_2 | string | 
+| original_zipcode  | int | 
+| updated_address_1   | string | 
+| updated_address_2   | string | 
+| updated_zipcode   | int | 
 
 -----
 

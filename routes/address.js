@@ -12,14 +12,16 @@ get '/' will refer to /address
 
 //serialize address
 function serializeAddress(req, address) {
-  const { address_1, address_2, state_id, city_id, zipcode } = address;
+  const { address_1, address_2, state_id, city_id, zipcode, createdAt, updatedAt } = address;
 
   return {
     address_1,
     address_2,
     state_id,
     city_id,
-    zipcode
+    zipcode,
+    createdAt, 
+    updatedAt
   };
 }
 
@@ -41,7 +43,9 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
   Address.findOne({
     where: {
-      address_1: req.query.address_1
+      address_1: req.query.address_1,
+      address_2: req.query.address_2,
+      zipcode: req.query.zipcode
     }
   })
   .then(address => {
@@ -60,8 +64,6 @@ router.post('/', (req, res) => {
   Address.findOrCreate({
     where: {
       address_1: req.query.address_1,
-    },
-    defaults: {
       address_2: req.query.address_2,
       zipcode: req.query.zipcode
     }
@@ -84,27 +86,26 @@ router.post('/', (req, res) => {
 
 //update an address
 router.patch('/', (req, res) => {
-  Address.findOne({
-    where: {
-      address_1: req.query.oldAddress_1,
-    }
-  })
-  .then(address => {
-    address.update({
-      address_1: req.query.address_1,
-      address_2: req.query.address_2,
-      zipcode: req.query.zipcode
-    })
-  })
-  .then(address => {
-    serialize(req, address, serializeAddress).then(json => {
+  Address.update({
+    address_1: req.query.updated_address_1,
+    address_2: req.query.updated_address_2,
+    zipcode: req.query.updated_zipcode
+  }, {
+    where : {
+      address_1: req.query.original_address_1,
+      address_2: req.query.original_address_2,
+      zipcode: req.query.original_zipcode
+    },
+    returning: true,
+  }).then(address => {
+    serialize(req, address[1], serializeAddress).then(json => {
       res.status(200).send(json);
     })
   })
-  .catch(err => {
-    res.status(400).send('Unable to update address');
-    console.log(err);
-  })
+    .catch(err => {
+      res.status(400).send('Unable to update address');
+      console.log(err);
+    })
 })
 
 //delete an adress

@@ -12,16 +12,17 @@ get '/' will refer to /user
 
 //Convert user object into json format for postman
 function serializeUser (req, user) {
-  const { id, email, first_name, last_name, createdAt, updatedAt, address_id } = user;
+  const { id, email, first_name, last_name, user_restaurant_order_id, createdAt, updatedAt, address_id } = user;
   
   return {
     id,
     email,
     first_name,
     last_name,
+    address_id,
+    user_restaurant_order_id,
     createdAt,
     updatedAt,
-    address_id
   }
 }
 
@@ -57,7 +58,7 @@ router.get('/search', (req, res) => {
 })
 
 //find a user, if they don't exist, create them.
-router.post('/create', (req, res) => {
+router.post('/', (req, res) => {
   User.findOrCreate({ 
     where: { 
       email: req.query.email,
@@ -85,22 +86,21 @@ router.post('/create', (req, res) => {
 
 //update a user
 router.patch('/', (req, res) => {
-  User.findOne({
+  User.update({
+    email: req.query.updated_email,
+    first_name: req.query.updated_first_name,
+    last_name: req.query.updated_last_name
+  }, {
     where: {
       email: req.query.original_email
-    }
+    },
+    returning: true,
   }).then(user => {
-    user.update({
-      email: req.query.updated_email,
-      first_name: req.query.first_name,
-      last_name: req.query.last_name
-    })
-    .then(user => {
-      serialize(req, user, serializeUser).then(json => {
+      console.log('THIS IS USER', user)
+      serialize(req, user[1], serializeUser).then(json => {
         res.status(200).send(json);
       })
     })
-  })
     .catch(err => {
       res.status(400).send('Unable to update user!');
       console.log(err);
