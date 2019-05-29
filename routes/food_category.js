@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const Food_Category = require('../models/food_category');
@@ -9,12 +10,25 @@ since /food_category is being pointed to this file,
 get '/' will refer to /food_category
 */
 
+//serialize food_category
+function foodCategorySerializer(req, foodCategory) {
+  const { id, name, createdAt, updatedAt} = foodCategory;
+
+  return {
+    id,
+    name, 
+    createdAt,
+    updatedAt
+  }
+}
+
 //find all food_category
 router.get('/', (req, res) => {
   Food_Category.findAll()
     .then(foodCategories => {
-      console.log('These are our foodCategories', foodCategories);
-      res.status(200).send('These are our foodCategories');
+      serialize(req, foodCategories, foodCategorySerializer).then(json => {
+        res.status(200).send(json);
+      })
     })
     .catch(err => {
       res.status(400).send('Unable to find foodCategories', err);
@@ -29,10 +43,9 @@ router.get('/search', (req, res) => {
     }
   })
   .then(foodCategory => {
-    console.log('This is our foodCategory', foodCategory.get({
-      plain:true
-    }))
-    res.status(200).send('Found foodCategory!', foodCategory);
+    serialize(req, foodCategory, foodCategorySerializer).then(json => {
+      res.status(200).send(json)
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to find foodCategory');
@@ -76,7 +89,9 @@ router.patch('/', (req, res) => {
     })
   })
   .then(foodCategory => {
-    res.json('Food_Category is now updated')
+    serialize(req, foodCategory, foodCategorySerializer).then(json => {
+      res.status(200).send(json)
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to update foodCategory');

@@ -1,15 +1,28 @@
 const express = require('express');
 const router = express.Router();
+const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const City = require('../models/city');
+
+function serializeCity(req, city) {
+  const { id, city_name, createdAt, updatedAt } = city;
+
+  return {
+    id,
+    city_name,
+    createdAt,
+    updatedAt
+  }
+}
 
 //find all city
 router.get('/', (req, res) => {
   City.findAll()
     .then(cities => {
-      console.log('These are our cities', cities);
-      res.status(200).send('These are our cities');
+      serialize(req, cities, serializeCity).then(json => {
+        res.status(200).send(json);
+      })
     })
     .catch(err => {
       res.status(400).send('Unable to find cities', err);
@@ -24,10 +37,9 @@ router.get('/search', (req, res) => {
     }
   })
   .then(city => {
-    console.log('This is our city', city.get({
-      plain:true
-    }))
-    res.status(200).send('Found city!', city);
+    serialize(req, city, serializeCity).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to find city');
@@ -71,7 +83,9 @@ router.patch('/', (req, res) => {
     })
   })
   .then(city => {
-    res.json('City is now updated')
+    serialize(req, city, serializeCity).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to update city');

@@ -1,15 +1,29 @@
 const express = require('express');
 const router = express.Router();
+const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const Country = require('../models/country');
+
+//serialize country
+function countrySerializer(req, country) {
+  const { id, country_name, updatedAt, createdAt } = country;
+
+  return {
+    id,
+    country_name,
+    updatedAt,
+    createdAt
+  }
+}
 
 //find all countries
 router.get('/', (req, res) => {
   Country.findAll()
     .then(countries => {
-      console.log('These are the countries', countries)
-      res.sendStatus(200);
+      serialize(req, countries, countrySerializer).then(json => {
+        res.status(200).send(json);
+      })
     })
     .catch(err => {
       res.status(400).send('Unable to find users');
@@ -25,10 +39,9 @@ router.get('/search', (req, res) => {
     }
   })
   .then(country => {
-    console.log('Found country', country.get({
-      plain: true
-    }))
-    res.sendStatus(200);
+    serialize(req, country, countrySerializer).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to find country', err)
@@ -69,7 +82,9 @@ router.patch('/', (req, res) => {
       name: req.query.new_name
     })
     .then(country => {
-      res.json('Country is now updated');
+      serialize(req, country, countrySerializer).then(json => {
+        res.status(200).send(json);
+      })
     })
   })
   .catch(err => {

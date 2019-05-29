@@ -1,15 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const Dish = require('../models/dish');
+
+//serialize dish
+function serializeDish(req, dish) {
+  const { id, dish_name, createdAt, updatedAt} = dish;
+
+  return {
+    id, dish_name, createdAt, updatedAt
+  }
+}
 
 //find all dish
 router.get('/', (req, res) => {
   Dish.findAll()
     .then(dishes => {
-      console.log('These are our dishes', dishes);
-      res.status(200).send('These are our dishes');
+      serialize(req, dishes, serializeDish).then(json => {
+        res.status(200).send(json);
+      })
     })
     .catch(err => {
       res.status(400).send('Unable to find dishes', err);
@@ -23,11 +34,10 @@ router.get('/search', (req, res) => {
       dish_name: req.query.dish_name
     }
   })
-  .then(dish => {
-    console.log('This is our dish', dish.get({
-      plain:true
-    }))
-    res.status(200).send('Found dish!', dish);
+  .then(dishes => {
+    serialize(req, dishes, serializeDish).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to find dish');
@@ -70,8 +80,10 @@ router.patch('/', (req, res) => {
       dish_name: req.query.new_name
     })
   })
-  .then(dish => {
-    res.json('Dish is now updated')
+  .then(dishes => {
+    serialize(req, dishes, serializeDish).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to update dish');

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const state = require('../models/state');
@@ -9,12 +10,26 @@ since /state is being pointed to this file,
 get '/' will refer to /state
 */
 
+//serialize state
+function serializeState(req, state) {
+  const { id, state_name, country_id, createdAt, updatedAt} = state;
+  
+  return {
+    id,
+    state_name,
+    country_id,
+    createdAt,
+    updatedAt
+  };
+}
+
 //find all states
 router.get('/', (req, res) => {
   state.findAll()
     .then(states => {
-      console.log('These are our states', states);
-      res.status(200).send('These are our states');
+      serialize(req, states, serializeState).then(json => {
+        res.status(200).send(json);
+      })
     })
     .catch(err => {
       res.status(400).send('Unable to find states', err);
@@ -29,10 +44,9 @@ router.get('/search', (req, res) => {
     }
   })
   .then(state => {
-    console.log('This is our state', state.get({
-      plain:true
-    }))
-    res.status(200).send('Found state!', state);
+    serialize(req, state, serializeState).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to find state');
@@ -76,7 +90,9 @@ router.patch('/', (req, res) => {
     })
   })
   .then(state => {
-    res.json('State is now updated')
+    serialize(req, state, serializeState).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to update state');

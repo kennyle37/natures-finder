@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const Restaurant = require('../models/restaurant');
@@ -9,12 +10,26 @@ since /restaurant is being pointed to this file,
 get '/' will refer to /restaurant
 */
 
+//serialize restaurant
+function serializeRestaurant(req, restaurant) {
+  const { id, name, address_id, dining_category_id, food_category_id } = restaurant;
+
+  return {
+    id, 
+    name,
+    address_id,
+    dining_category_id,
+    food_category_id
+  }
+}
+
 //find all restaurant
 router.get('/', (req, res) => {
   Restaurant.findAll()
     .then(restaurants => {
-      res.status(200).send('Restaurant found!');
-      console.log(restaurants);
+      serialize(req, restaurants, serializeRestaurant).then(json => {
+        res.status(200).send(json);
+      })
     })
     .catch(err => {
       res.status(400).send('Unable to find restaurants');
@@ -30,10 +45,9 @@ router.get('/search', (req, res) => {
     }
   })
   .then(restaurant => {
-    console.log('Restaurant found', restaurant.get({
-      plain:true
-    }))
-    res.sendStatus(200);
+    serializeRestaurant(req, restaurant, serializeRestaurant).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to find restaurant', err);
@@ -71,7 +85,9 @@ router.patch('/', (req, res) => {
     }
   })
   .then(restaurant => {
-    res.json('Restaurant updated')
+    serialize(req, restaurant, serializeRestaurant).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Unable to update restaurant!')

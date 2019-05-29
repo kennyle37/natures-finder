@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const Address = require('../models/address');
@@ -9,12 +10,26 @@ since /address is being pointed to this file,
 get '/' will refer to /address
 */
 
+//serialize address
+function serializeAddress(req, address) {
+  const { address_1, address_2, state_id, city_id, zipcode } = address;
+
+  return {
+    address_1,
+    address_2,
+    state_id,
+    city_id,
+    zipcode
+  };
+}
+
 //find all addresses
 router.get('/', (req, res) => {
   Address.findAll()
     .then(addresses => {
-      console.log('these are our addresses', addresses);
-      res.sendStatus(200);
+      serialize(req, addresses, serializeAddress).then(json => {
+        res.status(200).send(json);
+      })
     })
     .catch(err => {
       res.status(400).send('Could not find any addresses');
@@ -30,10 +45,9 @@ router.get('/search', (req, res) => {
     }
   })
   .then(address => {
-    console.log(address.get({
-      plain: true
-    }))
-    res.status(200).send('Address found!');
+    serialize(req, address, serializeAddress).then(json => {
+      res.status(200).send(json);
+    })
   })
   .catch(err => {
     res.status(400).send('Address could not be found');
@@ -81,6 +95,15 @@ router.patch('/', (req, res) => {
       address_2: req.query.address_2,
       zipcode: req.query.zipcode
     })
+  })
+  .then(address => {
+    serialize(req, address, serializeAddress).then(json => {
+      res.status(200).send(json);
+    })
+  })
+  .catch(err => {
+    res.status(400).send('Unable to update address');
+    console.log(err);
   })
 })
 
