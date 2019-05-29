@@ -187,7 +187,7 @@ Create an country
 
 ### patch
 ### /country
-Search a address by their old address and then update 
+Search a country by their old name and then update 
 
 | Fields  | Type   | 
 | --------|:------:| 
@@ -198,8 +198,56 @@ Search a address by their old address and then update
 
 ### delete
 ### /country
-Search an address and delete it
+Search a country and delete it
 
 | Fields  | Type   | 
 | --------|:------:| 
 | country_name (required)  | string | 
+
+# Dining_category API
+
+### get
+### /dining_category
+
+Find all dining_categories
+
+-----
+
+### get
+### /dining_category/search
+Find one user by their email
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name (required)  | string | 
+
+-----
+
+### post
+### /dining_category
+Create a dining_category
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name (required)  | string | 
+
+-----
+
+### patch
+### /dining_category
+Search a dining_category by their original name and then update their name
+
+| Fields  | Type   | 
+| --------|:------:| 
+| original_name (required)  | string | 
+| updated_name (required)  | string | 
+
+-----
+
+### delete
+### /dining_category
+Search a dining_category by their name and delete it
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name   | string | 

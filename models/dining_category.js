@@ -3,7 +3,10 @@ const db = require('../config/db');
 
 const Dining_Category = db.define('dining_category', {
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
   }
 });
 

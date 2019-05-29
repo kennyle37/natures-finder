@@ -25,12 +25,12 @@ function serializeDiningCategory(req, diningCategory) {
 router.get('/', (req, res) => {
   Dining_Category.findAll()
     .then(diningCategories => {
-      serialize(res, diningCategories, serializeDiningCategory).then(json => {
+      serialize(req, diningCategories, serializeDiningCategory).then(json => {
         res.status(200).send(json);
       })
     })
     .catch(err => {
-      res.status(400).send('Unable to find diningCategories', err);
+      res.status(400).send('Unable to find dining categories', err);
     })
 })
 
@@ -42,12 +42,12 @@ router.get('/search', (req, res) => {
     }
   })
   .then(diningCategory => {
-    serialize(res, diningCategory, serializeDiningCategory).then(json => {
+    serialize(req, diningCategory, serializeDiningCategory).then(json => {
       res.status(200).send(json);
     })
   })
   .catch(err => {
-    res.status(400).send('Unable to find diningCategory');
+    res.status(400).send('Unable to find dining category');
     console.log(err)
   })
 })
@@ -64,59 +64,54 @@ router.post('/', (req, res) => {
       plain: true
     }))
     if (created) {
-      res.json('diningCategory created');
+      res.json('Dining category created');
     } else {
-      res.json('diningCategory already exist');
+      res.json('Dining category already exist');
     }
   })
   .catch(err => {
-    res.status(400).send('Unable to create diningCategory')
+    res.status(400).send('Unable to create dining category')
     console.error(err);
   })
 })
 
 //update a dining_category
 router.patch('/', (req, res) => {
-  Dining_Category.findOne({
+  Dining_Category.update({
+    name: req.query.updated_name
+  }, {
     where: {
-      name: req.query.old_name
-    }
-  })
-  .then(diningCategory => {
-    diningCategory.update({
-      name: req.query.new_name
-    })
-  })
-  .then(diningCategory => {
-    serialize(res, diningCategory, serializeDiningCategory).then(json => {
+      name: req.query.original_name
+    },
+    returning: true
+  }).then(diningCategory => {
+    serialize(req, diningCategory[1], serializeDiningCategory).then(json => {
       res.status(200).send(json);
     })
   })
   .catch(err => {
-    res.status(400).send('Unable to update diningCategory');
+    res.status(400).send('Unable to update dining category');
     console.log(err);
   })
 })
 
 //delete a dining_category
 router.delete('/', (req, res) => {
-  Dining_Category.findOne({
+  Dining_Category.destroy({
     where: {
       name: req.query.name
     }
   })
   .then(diningCategory => {
     if (diningCategory) {
-      diningCategory.destroy().then(diningCategory => {
-        res.json('Dining_Category deleted successfully!')
-      })
+      res.json('Dining category deleted successfully!')
     } else {
-      res.json('Unable to delete diningCategory, diningCategory does not exist')
+      res.json('Unable to delete dining category, dining category does not exist')
     }
   })
   .catch(err => {
-    res.status(400).send('Unable to delete diningCategory');
-    console.log(err)
+    res.status(400).send('Unable to delete dining category');
+    console.error(err)
   })
 })
 

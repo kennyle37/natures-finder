@@ -46,6 +46,9 @@ app.use('/api/city', require('../routes/city'));
 //routes for our Country
 app.use('/api/country', require('../routes/country'));
 
+//routes for our dining_category
+app.use('/api/dining_category', require('../routes/dining_category'));
+
 //routes for our Order
 app.use('/api/order', require('../routes/order'));
 
