@@ -59,31 +59,29 @@ router.post('/', (req, res) => {
       plain: true
     }))
     if (created) {
-      res.json('city created');
+      res.json('City Created!');
     } else {
-      res.json('city already exist');
+      res.json('City already exist');
     }
   })
   .catch(err => {
-    res.status(400).send('Unable to create city')
+    res.status(400).send('Unable to create city!')
     console.error(err);
   })
 })
 
 //update a city
 router.patch('/', (req, res) => {
-  City.findOne({
+  City.update({
+    city_name: req.query.updated_city_name
+  }, {
     where: {
-      city_name: req.query.old_city_name
-    }
+      city_name: req.query.original_city_name
+    },
+    returning: true
   })
   .then(city => {
-    city.update({
-      city_name: req.query.new_city_name
-    })
-  })
-  .then(city => {
-    serialize(req, city, serializeCity).then(json => {
+    serialize(req, city[1], serializeCity).then(json => {
       res.status(200).send(json);
     })
   })

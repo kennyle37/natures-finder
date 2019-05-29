@@ -105,3 +105,51 @@ Search an address and delete it
 | Fields  | Type   | 
 | --------|:------:| 
 | address_1 (required)  | string | 
+
+# CITY API
+
+### get
+### /city
+
+Find all cities
+
+-----
+
+### get
+### /city/search
+Find one city by its name
+
+| Fields  | Type   | 
+| --------|:------:| 
+| city_name (required)  | string | 
+
+-----
+
+### post
+### /city
+Create a city
+
+| Fields  | Type   | 
+| --------|:------:| 
+| city_name (required) | string | 
+
+-----
+
+### patch
+### /city
+Search a city by their original email and then update their profile
+
+| Fields  | Type   | 
+| --------|:------:| 
+| original_city_name (required) | string | 
+| updated_city_name (required) | string | 
+
+-----
+
+### delete
+### /city
+Search a user by their email and delete them
+
+| Fields  | Type   | 
+| --------|:------:| 
+| city_name   | string | 

@@ -40,6 +40,9 @@ app.use('/api/user', require('../routes/user'));
 //routes for our Address
 app.use('/api/address', require('../routes/address'));
 
+//routes for our City
+app.use('/api/city', require('../routes/city'));
+
 //routes for our Order
 app.use('/api/order', require('../routes/order'));
 
