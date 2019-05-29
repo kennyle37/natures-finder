@@ -110,16 +110,16 @@ router.patch('/', (req, res) => {
 
 //delete an adress
 router.delete('/', (req, res) => {
-  Address.findOne({
+  Address.destroy({
     where: {
       address_1: req.query.address_1,
+      address_2: req.query.address_2,
+      zipcode: req.query.zipcode
     }
   })
   .then(address => {
     if (address) {
-      address.destroy().then(address => {
-        res.json('Address deleted successfully!')
-      })
+      res.json('Address deleted successfully!')
     } else {
       res.json('Unable to delete address, address does not exist!')
     }
@@ -128,6 +128,7 @@ router.delete('/', (req, res) => {
     res.status(400).send('Unable to delete Address');
     console.log(err)
   })
+
 })
 
 module.exports = router;

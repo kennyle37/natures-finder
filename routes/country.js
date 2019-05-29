@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
   Country.findOne({
     where: {
-      name: req.query.name
+      country_name: req.query.country_name
     }
   })
   .then(country => {
@@ -44,7 +44,8 @@ router.get('/search', (req, res) => {
     })
   })
   .catch(err => {
-    res.status(400).send('Unable to find country', err)
+    res.status(400).send('Unable to find country');
+    console.error(err);
   })
 })
 
@@ -52,7 +53,7 @@ router.get('/search', (req, res) => {
 router.post('/', (req,res) => {
   Country.findOrCreate({
     where: {
-      name: req.query.name
+      country_name: req.query.country_name
     }
   })
   .spread((country, created) => {
@@ -73,38 +74,35 @@ router.post('/', (req,res) => {
 
 //update a country
 router.patch('/', (req, res) => {
-  Country.findOne({
-    where: {
-      name: req.query.old_name
-    }
-  }).then(country => {
-    country.undate({
-      name: req.query.new_name
+  Country.update({
+      country_name: req.query.updated_country_name
+    }, {
+      where: {
+        country_name: req.query.original_country_name
+      },
+      returning: true
     })
     .then(country => {
-      serialize(req, country, countrySerializer).then(json => {
+      serialize(req, country[1], countrySerializer).then(json => {
         res.status(200).send(json);
       })
     })
-  })
-  .catch(err => {
-    res.status(400).send('Unable to update country');
-    console.log(err);
-  })
+    .catch(err => {
+      res.status(400).send('Unable to update country');
+      console.log(err);
+    })
 })
 
 //delete a country
 router.delete('/', (req, res) => {
-  Country.findOne({
+  Country.destroy({
     where: {
-      name: req.query.name
+      country_name: req.query.country_name
     }
   })
   .then(country => {
     if (country) {
-      country.destroy().then(country => {
-        res.json('Country deleted sucessfully!')
-      })
+      res.json('Country deleted successfully!')
     } else {
       res.json('Unable to delete country, country does not exist')
     }

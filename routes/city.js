@@ -80,29 +80,27 @@ router.patch('/', (req, res) => {
     },
     returning: true
   })
-  .then(city => {
-    serialize(req, city[1], serializeCity).then(json => {
-      res.status(200).send(json);
+    .then(city => {
+      serialize(req, city[1], serializeCity).then(json => {
+        res.status(200).send(json);
+      })
     })
-  })
-  .catch(err => {
-    res.status(400).send('Unable to update city');
-    console.log(err);
-  })
+    .catch(err => {
+      res.status(400).send('Unable to update city');
+      console.log(err);
+    })
 })
 
 //delete a city
 router.delete('/', (req, res) => {
-  City.findOne({
+  City.destroy({
     where: {
       city_name: req.query.city_name
     }
   })
   .then(city => {
     if (city) {
-      city.destroy().then(city => {
-        res.json('City deleted successfully!')
-      })
+      res.json('City deleted successfully!')
     } else {
       res.json('Unable to delete city, city does not exist')
     }
@@ -111,6 +109,7 @@ router.delete('/', (req, res) => {
     res.status(400).send('Unable to delete city');
     console.log(err)
   })
+
 })
 
 module.exports = router;

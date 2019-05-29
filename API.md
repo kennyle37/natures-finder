@@ -105,6 +105,8 @@ Search an address and delete it
 | Fields  | Type   | 
 | --------|:------:| 
 | address_1 (required)  | string | 
+| address_2  | string | 
+| zipcode  | string | 
 
 # CITY API
 
@@ -153,3 +155,51 @@ Search a user by their email and delete them
 | Fields  | Type   | 
 | --------|:------:| 
 | city_name   | string | 
+
+# Country API
+
+### get
+### /country
+
+Find all countries
+
+-----
+
+### get
+### /country/search
+Find one country by the country_name
+
+| Fields  | Type   | 
+| --------|:------:| 
+| country_name (required)  | string | 
+
+-----
+
+### post
+### /country
+Create an country
+
+| Fields  | Type   | 
+| --------|:------:| 
+| country_name (required)  | string | 
+
+-----
+
+### patch
+### /country
+Search a address by their old address and then update 
+
+| Fields  | Type   | 
+| --------|:------:| 
+| original_country_name (required)  | string | 
+| updated_country_name (required) | string | 
+
+-----
+
+### delete
+### /country
+Search an address and delete it
+
+| Fields  | Type   | 
+| --------|:------:| 
+| country_name (required)  | string | 

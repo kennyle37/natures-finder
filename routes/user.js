@@ -109,24 +109,22 @@ router.patch('/', (req, res) => {
 
 //delete a user
 router.delete('/', (req, res) => {
-  User.findOne({ 
-    where: { 
-      email: req.query.email 
+  User.destroy({
+    where: {
+      email: req.query.email
     }
   })
-    .then(user => {
-      if (user) {
-        user.destroy().then(user => {
-          res.json('User deleted sucessfully!')
-        })
-      } else {
-        res.json('Unable to delete user, user does not exist')
-      }
-    })
-    .catch(err => {
-      res.status(400).send('Unable to delete user!')
-      console.log(err)
-    })
+  .then(user => {
+    if (user) {
+      res.json('User deleted sucessfully!')
+    } else {
+      res.json('Unable to delete user, user does not exist')
+    }
+  })
+  .catch(err => {
+    res.status(400).send('Unable to delete user!')
+    console.error(err)
+  })
 })
 
 module.exports = router;
