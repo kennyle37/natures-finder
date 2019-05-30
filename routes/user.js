@@ -96,7 +96,6 @@ router.patch('/', (req, res) => {
     },
     returning: true,
   }).then(user => {
-      console.log('THIS IS USER', user)
       serialize(req, user[1], serializeUser).then(json => {
         res.status(200).send(json);
       })

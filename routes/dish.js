@@ -7,10 +7,14 @@ const Dish = require('../models/dish');
 
 //serialize dish
 function serializeDish(req, dish) {
-  const { id, dish_name, createdAt, updatedAt} = dish;
+  const { id, dish_name, dish_cost, createdAt, updatedAt} = dish;
 
   return {
-    id, dish_name, createdAt, updatedAt
+    id, 
+    dish_name, 
+    dish_cost, 
+    createdAt, 
+    updatedAt
   }
 }
 
@@ -31,7 +35,8 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
   Dish.findOne({
     where: {
-      dish_name: req.query.dish_name
+      dish_name: req.query.dish_name,
+      dish_cost: req.query.dish_cost
     }
   })
   .then(dishes => {
@@ -41,7 +46,7 @@ router.get('/search', (req, res) => {
   })
   .catch(err => {
     res.status(400).send('Unable to find dish');
-    console.log(err)
+    console.error(err)
   })
 })
 
@@ -50,6 +55,7 @@ router.post('/', (req, res) => {
   Dish.findOrCreate({
     where: {
       dish_name: req.query.dish_name,
+      dish_cost: req.query.dish_cost
     }
   })
   .spread((dish, created) => {
@@ -70,21 +76,22 @@ router.post('/', (req, res) => {
 
 //update a dish
 router.patch('/', (req, res) => {
-  Dish.findOne({
+  Dish.update({
+    dish_name: req.query.updated_dish_name,
+    dish_cost: req.query.updated_dish_cost
+  }, {
     where: {
-      dish_name: req.query.old_name
-    }
+      dish_name: req.query.original_dish_name,
+      dish_cost: req.query.original_dish_cost
+    },
+    returning: true
   })
   .then(dish => {
-    dish.update({
-      dish_name: req.query.new_name
-    })
-  })
-  .then(dishes => {
-    serialize(req, dishes, serializeDish).then(json => {
+    serialize(req, dish[1], serializeDish).then(json => {
       res.status(200).send(json);
     })
   })
+
   .catch(err => {
     res.status(400).send('Unable to update dish');
     console.log(err);
@@ -93,16 +100,15 @@ router.patch('/', (req, res) => {
 
 //delete a dish
 router.delete('/', (req, res) => {
-  Dish.findOne({
+  Dish.destroy({
     where: {
-      dish_name: req.query.dish_name
+      dish_name: req.query.dish_name,
+      dish_cost: req.query.dish_cost
     }
   })
   .then(dish => {
     if (dish) {
-      dish.destroy().then(dish => {
-        res.json('Dish deleted successfully!')
-      })
+      res.json('Dish deleted successfully!')
     } else {
       res.json('Unable to delete dish, dish does not exist')
     }

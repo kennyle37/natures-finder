@@ -52,6 +52,9 @@ app.use('/api/dining_category', require('../routes/dining_category'));
 //routes for our Order
 app.use('/api/order', require('../routes/order'));
 
+//routes for our Dish
+app.use('/api/Dish', require('../routes/dish'));
+
 //routes for our Restaurant
 app.use('/api/restaurant', require('../routes/restaurant'));
 

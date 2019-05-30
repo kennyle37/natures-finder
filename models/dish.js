@@ -7,7 +7,7 @@ const Dish = db.define('dish', {
   dish_name: {
     type: Sequelize.STRING
   },
-  cost: {
+  dish_cost: {
     type: Sequelize.DECIMAL(10,2),
     allowNull: false
   }

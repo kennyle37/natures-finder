@@ -251,3 +251,57 @@ Search a dining_category by their name and delete it
 | Fields  | Type   | 
 | --------|:------:| 
 | name   | string | 
+
+# Dish API
+
+### get
+### /dish
+
+Find all dish
+
+-----
+
+### get
+### /dish/search
+Find one dish by its name and cost
+
+| Fields  | Type   | 
+| --------|:------:| 
+| dish_name (required)  | string |
+| dish_cost (required)  | int | 
+
+-----
+
+### post
+### /dish
+Create a dish
+
+| Fields  | Type   | 
+| --------|:------:| 
+| dish_name (required)  | string |
+| dish_cost (required)  | int | 
+
+
+-----
+
+### patch
+### /dish
+Search a dish by their original name and cost and then update its name and cost
+
+| Fields  | Type   | 
+| --------|:------:| 
+| original_dish_name (required)  | string | 
+| original_dish_cost (required)  | int | 
+| updated_dish_name (required)  | string | 
+| updated_dish_cost (required)  | int | 
+
+-----
+
+### delete
+### /dish
+Search a dish by their name and delete it
+
+| Fields  | Type   | 
+| --------|:------:| 
+| dish_name (required)  | string | 
+| dish_cost (required)  | int | 
