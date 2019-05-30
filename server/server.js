@@ -49,6 +49,9 @@ app.use('/api/country', require('../routes/country'));
 //routes for our dining_category
 app.use('/api/dining_category', require('../routes/dining_category'));
 
+//routes for our food_category
+app.use('/api/food_category', require('../routes/food_category'));
+
 //routes for our Order
 app.use('/api/order', require('../routes/order'));
 

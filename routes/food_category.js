@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
       })
     })
     .catch(err => {
-      res.status(400).send('Unable to find foodCategories', err);
+      res.status(400).send('Unable to find food category', err);
     })
 })
 
@@ -48,7 +48,7 @@ router.get('/search', (req, res) => {
     })
   })
   .catch(err => {
-    res.status(400).send('Unable to find foodCategory');
+    res.status(400).send('Unable to find food category');
     console.log(err)
   })
 })
@@ -65,59 +65,54 @@ router.post('/', (req, res) => {
       plain: true
     }))
     if (created) {
-      res.json('foodCategory created');
+      res.json('food category created');
     } else {
-      res.json('foodCategory already exist');
+      res.json('food category already exist');
     }
   })
   .catch(err => {
-    res.status(400).send('Unable to create foodCategory')
+    res.status(400).send('Unable to create food category')
     console.error(err);
   })
 })
 
 //update a food_category
 router.patch('/', (req, res) => {
-  Food_Category.findOne({
+  Food_Category.update({
+    name: req.query.updated_name
+  }, {
     where: {
-      name: req.query.old_name
-    }
-  })
-  .then(foodCategory => {
-    foodCategory.update({
-      name: req.query.new_name
-    })
-  })
-  .then(foodCategory => {
-    serialize(req, foodCategory, foodCategorySerializer).then(json => {
+      name: req.query.original_name
+    },
+    returning: true
+  }).then(foodCategory => {
+    serialize(req, foodCategory[1], foodCategorySerializer).then(json => {
       res.status(200).send(json)
     })
   })
   .catch(err => {
-    res.status(400).send('Unable to update foodCategory');
-    console.log(err);
+    res.status(400).send('Unable to update food category');
+    console.error(err);
   })
 })
 
 //delete a food_category
 router.delete('/', (req, res) => {
-  Food_Category.findOne({
+  Food_Category.destroy({
     where: {
       name: req.query.name
     }
   })
   .then(foodCategory => {
     if (foodCategory) {
-      foodCategory.destroy().then(foodCategory => {
-        res.json('Food_Category deleted successfully!')
-      })
+      res.json('Food category deleted successfully!')
     } else {
-      res.json('Unable to delete foodCategory, foodCategory does not exist')
+      res.json('Unable to delete food category, food category does not exist')
     }
   })
   .catch(err => {
-    res.status(400).send('Unable to delete foodCategory');
-    console.log(err)
+    res.status(400).send('Unable to delete food category');
+    console.error(err)
   })
 })
 

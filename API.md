@@ -252,6 +252,55 @@ Search a dining_category by their name and delete it
 | --------|:------:| 
 | name   | string | 
 
+# Food_category API
+
+### get
+### /Food_category
+
+Find all food category
+
+-----
+
+### get
+### /food_category/search
+Find one food category by its name
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name  | string |
+
+-----
+
+### post
+### /food_category
+Create a food category
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name (required)  | string |
+
+
+-----
+
+### patch
+### /food_category
+Search a food category by their original name and cost and then update its name and cost
+
+| Fields  | Type   | 
+| --------|:------:| 
+| original_name (required)  | string | 
+| updated_name (required)  | string | 
+
+-----
+
+### delete
+### /food_category
+Search a food category by their name and delete it
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name (required)  | string | 
+
 # Dish API
 
 ### get
