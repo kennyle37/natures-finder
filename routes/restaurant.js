@@ -45,13 +45,14 @@ router.get('/search', (req, res) => {
     }
   })
   .then(restaurant => {
-    serializeRestaurant(req, restaurant, serializeRestaurant).then(json => {
+    serialize(req, restaurant, serializeRestaurant).then(json => {
       res.status(200).send(json);
     })
   })
   .catch(err => {
-    res.status(400).send('Unable to find restaurant', err);
-  });
+    res.status(400).send('Unable to find Restaurant');
+    console.error(err)
+  })
 })
 
 //create a restaurant
@@ -79,13 +80,16 @@ router.post('/', (req, res) => {
 
 //update a restaurant
 router.patch('/', (req, res) => {
-  Restaurant.findOne({
+  Restaurant.update({
+    name: req.query.updated_name
+  }, { 
     where: {
-      name: req.query.old_name
-    }
+      name: req.query.original_name
+    },
+    returning: true
   })
   .then(restaurant => {
-    serialize(req, restaurant, serializeRestaurant).then(json => {
+    serialize(req, restaurant[1], serializeRestaurant).then(json => {
       res.status(200).send(json);
     })
   })
@@ -97,23 +101,21 @@ router.patch('/', (req, res) => {
 
 //delete a restaurant
 router.delete('/', (req, res) => {
-  Restaurant.findOne({
+  Restaurant.destroy({
     where: {
       name: req.query.name
     }
   })
   .then(restaurant => {
     if (restaurant) {
-      restaurant.destroy().then(restaurant => {
-        res.json('Restaurant deleted scucessfully!')
-      })
+      res.json('Restaurant deleted scucessfully!')
     } else {
       res.json('Unable to delete restaurant, restaurant does not exist')
     }
   })
   .catch(err => {
     res.status(400).send('Unable to delete restaurant');
-    console.log(err);
+    console.error(err);
   })
 })
 

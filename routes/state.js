@@ -3,7 +3,7 @@ const router = express.Router();
 const serialize = require('express-serializer');
 const db = require('../config/db');
 
-const state = require('../models/state');
+const State = require('../models/state');
 
 /*
 since /state is being pointed to this file, 
@@ -25,7 +25,7 @@ function serializeState(req, state) {
 
 //find all states
 router.get('/', (req, res) => {
-  state.findAll()
+  State.findAll()
     .then(states => {
       serialize(req, states, serializeState).then(json => {
         res.status(200).send(json);
@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
 
 //find one state
 router.get('/search', (req, res) => {
-  state.findOne({
+  State.findOne({
     where: {
       state_name: req.query.state_name
     }
@@ -56,7 +56,7 @@ router.get('/search', (req, res) => {
 
 //create a state
 router.post('/', (req, res) => {
-  state.findOrCreate({
+  State.findOrCreate({
     where: {
       state_name: req.query.state_name,
     }
@@ -79,18 +79,16 @@ router.post('/', (req, res) => {
 
 //update a state
 router.patch('/', (req, res) => {
-  state.findOne({
+  State.update({
+    state_name: req.query.updated_state_name
+  }, {
     where: {
-      state_name: req.query.old_state_name
-    }
+      state_name: req.query.original_state_name
+    },
+    returning: true,
   })
   .then(state => {
-    state.update({
-      state_name: req.query.new_state_name
-    })
-  })
-  .then(state => {
-    serialize(req, state, serializeState).then(json => {
+    serialize(req, state[1], serializeState).then(json => {
       res.status(200).send(json);
     })
   })
@@ -102,16 +100,14 @@ router.patch('/', (req, res) => {
 
 //delete a state
 router.delete('/', (req, res) => {
-  state.findONe({
-    where: {
-      state_name: req.query.state_name
-    }
-  })
-  .then(state => {
-    if (state) {
-      state.destroy().then(state => {
+    State.destroy({
+      where: {
+        state_name: req.query.state_name
+      }
+    })
+    .then(state => {
+      if (state) {
         res.json('State deleted successfully!')
-      })
     } else {
       res.json('Unable to delete state, state does not exist')
     }

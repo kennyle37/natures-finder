@@ -354,3 +354,100 @@ Search a dish by their name and delete it
 | --------|:------:| 
 | dish_name (required)  | string | 
 | dish_cost (required)  | int | 
+
+# State API
+
+### get
+### /state
+
+Find all state
+
+-----
+
+### get
+### /state/search
+Find one state by its name
+
+| Fields  | Type   | 
+| --------|:------:| 
+| state_name (required)  | string |
+
+-----
+
+### post
+### /state
+Create a state
+
+| Fields  | Type   | 
+| --------|:------:| 
+| state_name (required)  | string |
+
+-----
+
+### patch
+### /state
+Search a state by their original name and then update its name
+
+| Fields  | Type   | 
+| --------|:------:| 
+| original_state_name (required)  | string | 
+| updated_state_name (required)  | string | 
+
+-----
+
+### delete
+### /state
+Search a state by its name and delete it
+
+| Fields  | Type   | 
+| --------|:------:| 
+| state_name (required)  | string | 
+
+# Restaurant API
+
+### get
+### /Restaurant
+
+Find all Restaurants
+
+-----
+
+### get
+### /Restaurant/search
+Find one Restaurant by its name
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name (required)  | string |
+
+-----
+
+### post
+### /Restaurant
+Create a Restaurant
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name (required)  | string |
+
+-----
+
+### patch
+### /Restaurant
+Search a Restaurant by its original name and then update its name
+
+| Fields  | Type   | 
+| --------|:------:| 
+| original_name (required)  | string | 
+| updated_name (required)  | string | 
+
+-----
+
+### delete
+### /state
+Search a state by its name and delete it
+
+| Fields  | Type   | 
+| --------|:------:| 
+| name (required)  | string | 
+

@@ -43,6 +43,9 @@ app.use('/api/address', require('../routes/address'));
 //routes for our City
 app.use('/api/city', require('../routes/city'));
 
+//routes for our State
+app.use('/api/state', require('../routes/state'));
+
 //routes for our Country
 app.use('/api/country', require('../routes/country'));
 
