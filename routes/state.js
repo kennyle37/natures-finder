@@ -4,6 +4,7 @@ const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const State = require('../models/state');
+const Country = require('../models/country');
 
 /*
 since /state is being pointed to this file, 
@@ -40,7 +41,8 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
   State.findOne({
     where: {
-      state_name: req.query.state_name
+      state_name: req.query.state_name,
+      country_id: req.query.country_id
     }
   })
   .then(state => {
@@ -59,7 +61,9 @@ router.post('/', (req, res) => {
   State.findOrCreate({
     where: {
       state_name: req.query.state_name,
-    }
+      country_id: req.query.country_id
+    },
+    include: [ Country ]
   })
   .spread((state, created) => {
     console.log(state.get({
@@ -83,7 +87,8 @@ router.patch('/', (req, res) => {
     state_name: req.query.updated_state_name
   }, {
     where: {
-      state_name: req.query.original_state_name
+      state_name: req.query.original_state_name,
+      country_id: req.query.country_id
     },
     returning: true,
   })

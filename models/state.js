@@ -17,4 +17,8 @@ State.belongsTo(Country, {
   targetKey: 'id'
 })
 
+Country.hasMany(State, {
+  foreignKey: 'country_id'
+})
+
 module.exports = State;

@@ -4,13 +4,15 @@ const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const City = require('../models/city');
+const State = require('../models/state');
 
 function serializeCity(req, city) {
-  const { id, city_name, createdAt, updatedAt } = city;
+  const { id, city_name, state_id, createdAt, updatedAt } = city;
 
   return {
     id,
     city_name,
+    state_id,
     createdAt,
     updatedAt
   }
@@ -33,7 +35,8 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
   City.findOne({
     where: {
-      city_name: req.query.city_name
+      city_name: req.query.city_name,
+      state_id: req.query.state_id
     }
   })
   .then(city => {
@@ -52,7 +55,9 @@ router.post('/', (req, res) => {
   City.findOrCreate({
     where: {
       city_name: req.query.city_name,
-    }
+      state_id: req.query.state_id
+    },
+    include: [ State ]
   })
   .spread((city, created) => {
     console.log(city.get({
@@ -76,7 +81,8 @@ router.patch('/', (req, res) => {
     city_name: req.query.updated_city_name
   }, {
     where: {
-      city_name: req.query.original_city_name
+      city_name: req.query.original_city_name,
+      state_id: req.query.state_id
     },
     returning: true
   })
@@ -95,7 +101,8 @@ router.patch('/', (req, res) => {
 router.delete('/', (req, res) => {
   City.destroy({
     where: {
-      city_name: req.query.city_name
+      city_name: req.query.city_name,
+      state_id: req.query.state_id
     }
   })
   .then(city => {

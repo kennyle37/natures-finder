@@ -80,6 +80,8 @@ Create an address
 | req.query.address_1 (required)  | string | 
 | address_2   | string | 
 | zipcode   | integer | 
+| state_id   | integer | 
+| city_id   | integer | 
 
 -----
 
@@ -95,6 +97,8 @@ Search a address by their old address and then update
 | updated_address_1   | string | 
 | updated_address_2   | string | 
 | updated_zipcode   | int | 
+| state_id   | integer | 
+| city_id   | integer | 
 
 -----
 
@@ -106,9 +110,11 @@ Search an address and delete it
 | --------|:------:| 
 | address_1 (required)  | string | 
 | address_2  | string | 
-| zipcode  | string | 
+| zipcode (required) | string | 
+| state_id (required)  | integer | 
+| city_id (required)  | integer | 
 
-# CITY API
+# City API
 
 ### get
 ### /city
@@ -124,6 +130,7 @@ Find one city by its name
 | Fields  | Type   | 
 | --------|:------:| 
 | city_name (required)  | string | 
+| state_id (required) | int | 
 
 -----
 
@@ -134,6 +141,7 @@ Create a city
 | Fields  | Type   | 
 | --------|:------:| 
 | city_name (required) | string | 
+| state_id (required) | int | 
 
 -----
 
@@ -145,6 +153,7 @@ Search a city by their original email and then update their profile
 | --------|:------:| 
 | original_city_name (required) | string | 
 | updated_city_name (required) | string | 
+| state_id (required)   | int | 
 
 -----
 
@@ -154,7 +163,8 @@ Search a user by their email and delete them
 
 | Fields  | Type   | 
 | --------|:------:| 
-| city_name   | string | 
+| city_name (required)  | string | 
+| state_id (required)   | int | 
 
 # Country API
 
@@ -371,6 +381,7 @@ Find one state by its name
 | Fields  | Type   | 
 | --------|:------:| 
 | state_name (required)  | string |
+| country_id (required)   | int | 
 
 -----
 
@@ -381,6 +392,7 @@ Create a state
 | Fields  | Type   | 
 | --------|:------:| 
 | state_name (required)  | string |
+| country_id (required)   | int | 
 
 -----
 
@@ -392,6 +404,7 @@ Search a state by their original name and then update its name
 | --------|:------:| 
 | original_state_name (required)  | string | 
 | updated_state_name (required)  | string | 
+| country_id (required)   | int | 
 
 -----
 
@@ -402,6 +415,7 @@ Search a state by its name and delete it
 | Fields  | Type   | 
 | --------|:------:| 
 | state_name (required)  | string | 
+| country_id (required)   | int | 
 
 # Restaurant API
 

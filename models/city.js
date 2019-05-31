@@ -23,4 +23,8 @@ City.belongsTo(State, {
   targetKey: 'id'
 }) 
 
+State.hasMany(City, {
+  foreignKey: 'state_id'
+})
+
 module.exports = City;

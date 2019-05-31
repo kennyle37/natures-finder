@@ -41,4 +41,12 @@ Address.belongsTo(City, {
   targetKey: 'id'
 })
 
+City.hasMany(Address, {
+  foreignKey: 'city_id'
+})
+
+State.hasMany(Address, {
+  foreignKey: 'city_id'
+})
+
 module.exports = Address;

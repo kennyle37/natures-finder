@@ -4,6 +4,8 @@ const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const Address = require('../models/address');
+const City = require('../models/city');
+const State = require('../models/state');
 
 /*
 since /address is being pointed to this file, 
@@ -39,12 +41,11 @@ router.get('/', (req, res) => {
     })
 })
 
-//find one address
+//find an address
 router.get('/search', (req, res) => {
   Address.findOne({
     where: {
       address_1: req.query.address_1,
-      address_2: req.query.address_2,
       zipcode: req.query.zipcode
     }
   })
@@ -64,9 +65,14 @@ router.post('/', (req, res) => {
   Address.findOrCreate({
     where: {
       address_1: req.query.address_1,
+      zipcode: req.query.zipcode,
+      state_id: req.query.state_id,
+      city_id: req.query.city_id
+    },
+    defaults: {
       address_2: req.query.address_2,
-      zipcode: req.query.zipcode
-    }
+    },
+    include: [ City, State ]
   })
   .spread((address,created) => {
     console.log(address.get({
@@ -94,7 +100,9 @@ router.patch('/', (req, res) => {
     where : {
       address_1: req.query.original_address_1,
       address_2: req.query.original_address_2,
-      zipcode: req.query.original_zipcode
+      zipcode: req.query.original_zipcode,
+      state_id: req.query.state_id,
+      city_id: req.query.city_id
     },
     returning: true,
   }).then(address => {
@@ -114,7 +122,9 @@ router.delete('/', (req, res) => {
     where: {
       address_1: req.query.address_1,
       address_2: req.query.address_2,
-      zipcode: req.query.zipcode
+      zipcode: req.query.zipcode,
+      state_id: req.query.state_id,
+      city_id: req.query.city_id
     }
   })
   .then(address => {
