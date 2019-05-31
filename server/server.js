@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const db = require('../config/db');
-const models = require('../models');
+const models = require('../models/index[LEGACY]');
 
 //authenticate and connect to db
 db
