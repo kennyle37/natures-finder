@@ -12,7 +12,11 @@ const Restaurant = db.define('restaurant', {
       notEmpty: true
     }
   }
-});
+}, 
+  {
+    underscored: true
+  }
+);
 
 Restaurant.belongsTo(Food_Category, {
   foreignKey: 'food_category_id',

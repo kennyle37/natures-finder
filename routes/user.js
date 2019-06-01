@@ -65,7 +65,8 @@ router.post('/', (req, res) => {
     },
     defaults: { 
       first_name: req.query.first_name,
-      last_name: req.query.last_name
+      last_name: req.query.last_name,
+      address_id: req.query.address_id
     }
   })
     .spread((user, created) => {
@@ -89,7 +90,8 @@ router.patch('/', (req, res) => {
   User.update({
     email: req.query.updated_email,
     first_name: req.query.updated_first_name,
-    last_name: req.query.updated_last_name
+    last_name: req.query.updated_last_name,
+    address_id: req.query.updated_address_id
   }, {
     where: {
       email: req.query.original_email

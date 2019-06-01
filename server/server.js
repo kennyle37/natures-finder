@@ -12,10 +12,7 @@ db
   .then(() => {
     console.log('Success! Database connected');
     db.sync({ force: true }).then(() => {
-      console.log('db synced!')
-    })
-    .catch(err => {
-      console.error('could not sync db', err);
+      console.log('Data base connected! Beep boop beep boop!')
     })
   })
   .catch(err => {

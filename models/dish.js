@@ -11,7 +11,11 @@ const Dish = db.define('dish', {
     type: Sequelize.DECIMAL(10,2),
     allowNull: false
   }
-})
+},
+  {
+    underscored: true
+  }
+)
 
 Dish.belongsTo(Order, {
   foreignKey: 'order_id',

@@ -26,6 +26,7 @@ Create a user
 | email (required)  | string | 
 | first_name   | string | 
 | last_name   | string | 
+| address_id   | int | 
 
 -----
 
@@ -39,6 +40,7 @@ Search a user by their original email and then update their profile
 | updated_email   | string | 
 | updated_first_name   | string | 
 | updated_last_name   | string | 
+| updated_address_id   | int | 
 
 -----
 

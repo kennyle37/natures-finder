@@ -5,6 +5,10 @@ const Country = db.define('country', {
   country_name: {
     type: Sequelize.STRING
   }
-})
+},  
+  {
+    underscored: true
+  }
+)
 
 module.exports = Country;
