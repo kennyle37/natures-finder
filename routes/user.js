@@ -4,6 +4,7 @@ const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const User = require('../models/user');
+const Address = require('../models/address');
 
 /*
 since /user is being pointed to this file, 
@@ -67,7 +68,8 @@ router.post('/', (req, res) => {
       first_name: req.query.first_name,
       last_name: req.query.last_name,
       address_id: req.query.address_id
-    }
+    },
+    include: [ Address ]
   })
     .spread((user, created) => {
       console.log(user.get({

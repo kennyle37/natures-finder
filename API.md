@@ -445,6 +445,9 @@ Create a Restaurant
 | Fields  | Type   | 
 | --------|:------:| 
 | name (required)  | string |
+| dining_category_id | int |
+| food_category_id | int |
+
 
 -----
 
@@ -456,6 +459,8 @@ Search a Restaurant by its original name and then update its name
 | --------|:------:| 
 | original_name (required)  | string | 
 | updated_name (required)  | string | 
+| updated_dining_category_id | int |
+| updated_food_category_id | int |
 
 -----
 

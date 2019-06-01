@@ -4,6 +4,8 @@ const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const Restaurant = require('../models/restaurant');
+const Food_Category = require('../models/food_category');
+const Dining_category = require('../models/dining_category');
 
 /*
 since /restaurant is being pointed to this file, 
@@ -59,8 +61,13 @@ router.get('/search', (req, res) => {
 router.post('/', (req, res) => {
   Restaurant.findOrCreate({
     where: {
-      name: req.query.name
-    }
+      name: req.query.name,
+    },
+    defaults: {
+      dining_category_id: req.query.dining_category_id,
+      food_category_id: req.query.food_category_id
+    },
+    include: [ Food_Category, Dining_category ]
   })
   .spread((restaurant, created) => {
     console.log(restaurant.get({
@@ -81,7 +88,9 @@ router.post('/', (req, res) => {
 //update a restaurant
 router.patch('/', (req, res) => {
   Restaurant.update({
-    name: req.query.updated_name
+    name: req.query.updated_name,
+    dining_category_id: req.query.updated_dining_category_id,
+    food_category_id: req.query.updated_food_category_id
   }, { 
     where: {
       name: req.query.original_name
