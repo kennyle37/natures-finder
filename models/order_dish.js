@@ -8,7 +8,7 @@ const Order_Dish = db.define('order_dish', {}, {
   underscored: true
 });
 
-Order.hasMany(Dish, {
+Order.belongsToMany(Dish, {
   through: Order_Dish,
   foreignKey: 'dishes_id'
 })
