@@ -24,6 +24,13 @@ const Order = db.define('order', {
   },
   rating: {
     type: Sequelize.INTEGER,
+    validate: {
+      isInRange(value) {
+        if (value < 0 || value > 5) {
+          throw new Error('Please enter a rating between 0-5');
+        }
+      }
+    }
   },
   date: {
     type: Sequelize.DATE
