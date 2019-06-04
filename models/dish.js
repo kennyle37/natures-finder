@@ -17,9 +17,5 @@ const Dish = db.define('dish', {
   }
 )
 
-Dish.belongsTo(Order, {
-  foreignKey: 'order_id',
-  targetKey: 'id'
-})
 
 module.exports = Dish;

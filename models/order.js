@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
+const Dish = require('./dish');
+
 const Order = db.define('order', {
   cost: {
     type: Sequelize.DECIMAL(10,2),
@@ -31,5 +33,8 @@ const Order = db.define('order', {
     underscored: true
   }
 )
+
+// Order.hasMany(Dish)
+// Dish.belongsToMany(Order)
 
 module.exports = Order;
