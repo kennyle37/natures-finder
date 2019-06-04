@@ -26,6 +26,30 @@ module.exports = {
       city_id: 3,
       created_at: new Date(),
       updated_at: new Date(),
+    }, {
+      address_1: '372 Grand Avenue',
+      address_2: '',
+      zipcode: 94610,
+      state_id: 1,
+      city_id: 5,
+      created_at: new Date(),
+      updated_at: new Date(),
+    }, {
+      address_1: '2575 Telegraph Ave',
+      address_2: '',
+      zipcode: 94704,
+      state_id: 1,
+      city_id: 4,
+      created_at: new Date(),
+      updated_at: new Date(),
+    }, {
+      address_1: '2221 Broadway',
+      address_2: '',
+      zipcode: 94612,
+      state_id: 1,
+      city_id: 4,
+      created_at: new Date(),
+      updated_at: new Date(),
     }], {});
   },
 
@@ -48,6 +72,30 @@ module.exports = {
       zipcode: 97887,
       state_id: 2,
       city_id: 3,
+    }, {
+      address_1: '372 Grand Avenue',
+      address_2: '',
+      zipcode: 94610,
+      state_id: 1,
+      city_id: 5,
+      created_at: new Date(),
+      updated_at: new Date(),
+    }, {
+      address_1: '2575 Telegraph Ave',
+      address_2: '',
+      zipcode: 94704,
+      state_id: 1,
+      city_id: 4,
+      created_at: new Date(),
+      updated_at: new Date(),
+    }, {
+      address_1: '2221 Broadway',
+      address_2: '',
+      zipcode: 94612,
+      state_id: 1,
+      city_id: 4,
+      created_at: new Date(),
+      updated_at: new Date(),
     }], {});
   }
 };

@@ -18,6 +18,16 @@ module.exports = {
       state_id: 2,
       created_at: new Date(),
       updated_at: new Date(),
+    }, {
+      city_name: 'Berkeley',
+      state_id: 1,
+      created_at: new Date(),
+      updated_at: new Date(), 
+    }, {
+      city_name: 'Oakland',
+      state_id: 1,
+      created_at: new Date(),
+      updated_at: new Date(), 
     }], {});
   },
 
@@ -33,6 +43,16 @@ module.exports = {
       }, {
         city_name: 'Seattle',
         state_id: 2,
+      }, {
+        city_name: 'Berkeley',
+        state_id: 1,
+        created_at: new Date(),
+        updated_at: new Date(), 
+      }, {
+        city_name: 'Oakland',
+        state_id: 1,
+        created_at: new Date(),
+        updated_at: new Date(), 
       }], {});
   },  
 };
