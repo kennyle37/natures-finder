@@ -116,7 +116,7 @@ router.delete('/', (req, res) => {
   })
   .then(order => {
     if (order) {
-      res.json('Food category deleted successfully!')
+      res.json('Order deleted successfully!')
     } else {
       res.json('Unable to delete order, order does not exist')
     }
