@@ -5,20 +5,16 @@ const User = require('./user');
 const Order = require('./order');
 const Restaurant = require('./restaurant');
 
-const User_Restaurant_Order = db.define('user_restaurant_orders', {}, {
+const User_Restaurant = db.define('user_restaurant', {}, {
   underscored: true
 });
 
 Restaurant.belongsToMany(User, {
-  through: User_Restaurant_Order,
+  through: User_Restaurant,
 })
 
 User.belongsToMany(Restaurant, {
-  through: User_Restaurant_Order
+  through: User_Restaurant,
 })
 
-User_Restaurant_Order.belongsTo(Order, {
-  foreignKey: 'order_id'
-})
-
-module.exports = User_Restaurant_Order;
+module.exports = User_Restaurant;

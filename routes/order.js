@@ -64,7 +64,6 @@ router.post('/', (req, res) => {
   Order.create({
     cost: req.query.cost,
     tips: req.query.tips,
-    total_cost: req.query.total_cost,
     rating: req.query.rating,
     date: req.query.date,
   })

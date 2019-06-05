@@ -66,3 +66,8 @@ app.use('/api/state', require('../routes/state'));
 
 //routes for our order_dish
 app.use('/api/order_dish', require('../routes/order_dish'));
+
+//routes for our user_restaurant
+app.use('/api/user_restaurant', require('../routes/user_restaurant'));
+
+

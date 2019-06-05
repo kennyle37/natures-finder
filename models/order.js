@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
+const Order_Dish = require('./order_dish');
 const Dish = require('./dish');
 
 const Order = db.define('order', {
@@ -40,8 +41,5 @@ const Order = db.define('order', {
     underscored: true
   }
 )
-
-// Order.hasMany(Dish)
-// Dish.belongsToMany(Order)
 
 module.exports = Order;

@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-const Order = require('./order');
-
 const Dish = db.define('dish', {
   dish_name: {
     type: Sequelize.STRING
@@ -16,6 +14,5 @@ const Dish = db.define('dish', {
     underscored: true
   }
 )
-
 
 module.exports = Dish;
