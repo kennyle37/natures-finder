@@ -1,9 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-const Order_Dish = require('./order_dish');
-const Dish = require('./dish');
-
 const Order = db.define('order', {
   cost: {
     type: Sequelize.DECIMAL(10,2),
