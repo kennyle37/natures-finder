@@ -61,17 +61,17 @@ router.get('/search', (req, res) => {
 
 //create a order
 router.post('/', (req, res) => {
-  Order.create({
-    cost: req.query.cost,
-    tips: req.query.tips,
-    rating: req.query.rating,
-    date: req.query.date,
-    restaurant_id: req.query.restaurant_id
+  console.log('THIS IS ORDER', Order)
+  Order.findOrCreate({
+    where: {
+      cost: req.query.cost,
+      tips: req.query.tips,
+      rating: req.query.rating,
+      date: req.query.date,
+      restaurant_id: req.query.restaurant_id
+    }
   })
   .then(([order, created]) => {
-    console.log(order.get({
-      plain: true
-    }))
     if (created) {
       res.json('order created');
     } else {

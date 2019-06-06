@@ -8,11 +8,13 @@ const Order_Dish = db.define('order_dish', {}, {
 })
 
 Order.belongsToMany(Dish, {
-  through: Order_Dish
+  through: Order_Dish,
+  foreignKey: 'order_id'
 })
 
 Dish.belongsToMany(Order, {
-  through: Order_Dish
+  through: Order_Dish,
+  foreignKey: 'dish_id'
 })
 
 module.exports = Order_Dish;

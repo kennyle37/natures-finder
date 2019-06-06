@@ -12,12 +12,11 @@ const Order = db.define('order', {
   },
   total_cost: {
     type: Sequelize.DECIMAL(10,2),
-    allowNull: false,
     get() {
       const cost = this.getDataValue('cost');
       const tips = this.getDataValue('tips');
 
-      return cost + tips;
+      return parseFloat(cost) + parseFloat(tips);
     }
   },
   rating: {
@@ -31,7 +30,8 @@ const Order = db.define('order', {
     }
   },
   date: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
   }
 }, 
   {

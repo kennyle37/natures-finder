@@ -4,6 +4,8 @@ const db = require('../config/db');
 const serialize = require('express-serializer');
 
 const User_Order = require('../models/user_order');
+const User = require('../models/user');
+const Order = require('../models/order');
 
 function userOrderSerializer(req, userOrder) {
   const { 
@@ -55,28 +57,54 @@ router.get('/search', (req, res) => {
 })
 
 //create a user_order
+// router.post('/', (req, res) => {
+//   User_Order.create({
+//     order_id: req.query.order_id,
+//     user_id: req.query.user_id,
+//   })
+//   .then(([userOrder, created]) => {
+//     console.log(userOrder.get({
+//       plain: true
+//     }))
+//     if (created) {
+//       res.json('user order created');
+//     } else {
+//       res.json('user order already exist');
+//     }
+//   })
+//   .catch(err => {
+//     res.status(400).send('Unable to create user order')
+//     console.error(err);
+//   })
+// })
+
 router.post('/', (req, res) => {
-  User_Order.create({
-    order_id: req.query.order_id,
-    user_id: req.query.user_id,
+  Promise.all([
+    User.findOrCreate({
+      where: {
+        email: req.query.email
+      }
+    }), 
+    Order.findOrCreate({
+      where: {
+        order_id: req.query.order_id
+      }
+    })
+  ])
+  .then(([user, order]) => {
+    User_Order.create({
+      user_id: user[0].id,
+      order_id: order[0].id,
+    })
   })
-  .then(([userOrder, created]) => {
-    console.log(userOrder.get({
-      plain: true
-    }))
-    if (created) {
-      res.json('user order created');
-    } else {
-      res.json('user order already exist');
-    }
+  .then(user_order => {
+    res.status(200).send('User_Order created!')
   })
   .catch(err => {
-    res.status(400).send('Unable to create user order')
+    res.status(400).send('Unable to create user_order');
     console.error(err);
   })
 })
-
-
 
 //update a user_order
 router.patch('/', (req, res) => {

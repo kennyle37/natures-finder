@@ -4,6 +4,7 @@ const db = require('../config/db');
 const Food_Category = require('./food_category');
 const Dining_Category = require('./dining_category');
 const Address = require('./address');
+const Order = require('./order');
 
 const Restaurant = db.define('restaurant', {
   restaurant_name: {
@@ -32,5 +33,7 @@ Restaurant.belongsTo(Address, {
   foreignKey: 'address_id',
   targetKey: 'id'
 })
+
+Restaurant.hasMany(Order)
 
 module.exports = Restaurant;

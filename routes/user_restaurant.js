@@ -71,7 +71,6 @@ router.post('/', (req, res) => {
     })
   ])
   .then(([user, restaurant]) => {
-    console.log('USER ID', typeof user[0].id);
     User_Restaurant.create({
       user_id: user[0].id,
       restaurant_id: restaurant[0].id
