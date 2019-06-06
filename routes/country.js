@@ -56,7 +56,7 @@ router.post('/', (req,res) => {
       country_name: req.query.country_name
     }
   })
-  .spread((country, created) => {
+  .then(([country, created]) => {
     console.log(country.get({
       plain: true
     }))

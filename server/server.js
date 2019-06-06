@@ -70,4 +70,8 @@ app.use('/api/order_dish', require('../routes/order_dish'));
 //routes for our user_restaurant
 app.use('/api/user_restaurant', require('../routes/user_restaurant'));
 
+//routes for our user_order
+app.use('/api/user_order', require('../routes/user_order'));
+
+
 

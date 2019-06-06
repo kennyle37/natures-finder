@@ -58,7 +58,7 @@ router.post('/', (req, res) => {
       dish_cost: req.query.dish_cost
     }
   })
-  .spread((dish, created) => {
+  .then(([dish, created]) => {
     console.log(dish.get({
       plain: true
     }))

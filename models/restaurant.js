@@ -6,7 +6,7 @@ const Dining_Category = require('./dining_category');
 const Address = require('./address');
 
 const Restaurant = db.define('restaurant', {
-  name: {
+  restaurant_name: {
     type: Sequelize.STRING,
     validate: {
       notEmpty: true

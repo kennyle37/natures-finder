@@ -14,11 +14,11 @@ get '/' will refer to /restaurant
 
 //serialize restaurant
 function serializeRestaurant(req, restaurant) {
-  const { id, name, address_id, dining_category_id, food_category_id } = restaurant;
+  const { id, restaurant_name, address_id, dining_category_id, food_category_id } = restaurant;
 
   return {
     id, 
-    name,
+    restaurant_name,
     address_id,
     dining_category_id,
     food_category_id
@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
   Restaurant.findOne({
     where: {
-      name: req.query.name
+      restaurant_name: req.query.restaurant_name
     }
   })
   .then(restaurant => {
@@ -61,7 +61,7 @@ router.get('/search', (req, res) => {
 router.post('/', (req, res) => {
   Restaurant.findOrCreate({
     where: {
-      name: req.query.name,
+      restaurant_name: req.query.restaurant_name,
     },
     defaults: {
       dining_category_id: req.query.dining_category_id,
@@ -69,7 +69,7 @@ router.post('/', (req, res) => {
     },
     include: [ Food_Category, Dining_category ]
   })
-  .spread((restaurant, created) => {
+  .then(([restaurant, created]) => {
     console.log(restaurant.get({
       plain: true
     }))
@@ -88,12 +88,12 @@ router.post('/', (req, res) => {
 //update a restaurant
 router.patch('/', (req, res) => {
   Restaurant.update({
-    name: req.query.updated_name,
+    restaurant_name: req.query.updated_name,
     dining_category_id: req.query.updated_dining_category_id,
     food_category_id: req.query.updated_food_category_id
   }, { 
     where: {
-      name: req.query.original_name
+      restaurant_name: req.query.original_name
     },
     returning: true
   })
@@ -112,7 +112,7 @@ router.patch('/', (req, res) => {
 router.delete('/', (req, res) => {
   Restaurant.destroy({
     where: {
-      name: req.query.name
+      restaurant_name: req.query.restaurant_name
     }
   })
   .then(restaurant => {

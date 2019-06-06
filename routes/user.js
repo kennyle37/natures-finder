@@ -71,7 +71,7 @@ router.post('/', (req, res) => {
     },
     include: [ Address ]
   })
-    .spread((user, created) => {
+    .then(([user, created]) => {
       console.log(user.get({
         plain: true
       }))

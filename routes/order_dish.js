@@ -63,7 +63,7 @@ router.post('/', (req, res) => {
       order_id: req.query.order_id
     }
   })
-  .spread((orderDish, created) => {
+  .then(([orderDish, created]) => {
     console.log(orderDish.get({
       plain: true
     }))

@@ -4,6 +4,8 @@ const db = require('../config/db');
 const serialize = require('express-serializer');
 
 const User_Restaurant = require('../models/user_restaurant');
+const Restaurant = require('../models/restaurant');
+const User = require('../models/user');
 
 function userRestaurantSerializer(req, userRestaurant) {
   const { 
@@ -36,11 +38,11 @@ router.get('/', (req, res) => {
     })
 })
 
-//find one user_restaurant_order
+//find one user_restaurant
 router.get('/search', (req, res) => {
   User_Restaurant.findOne({
     where: {
-      id: req.query.id
+      restaurant_name: req.query.restaurant_name
     }
   })
   .then(userRestaurant => {
@@ -54,29 +56,37 @@ router.get('/search', (req, res) => {
   })
 })
 
-//create a user_restaurant_order
+//create a user_restaurant
 router.post('/', (req, res) => {
-  User_Restaurant.create({
-    restaurant_id: req.query.restaurant_id,
-    user_id: req.query.user_id,
+  Promise.all([
+    User.findOrCreate({
+      where: {
+        email: req.query.email
+      }
+    }),
+    Restaurant.findOrCreate({
+      where: {
+        restaurant_name: req.query.restaurant_name,
+      }
+    })
+  ])
+  .then(([user, restaurant]) => {
+    console.log('USER ID', typeof user[0].id);
+    User_Restaurant.create({
+      user_id: user[0].id,
+      restaurant_id: restaurant[0].id
+    })
   })
-  .spread((userRestaurant, created) => {
-    console.log(userRestaurant.get({
-      plain: true
-    }))
-    if (created) {
-      res.json('user restaurant created');
-    } else {
-      res.json('user restaurant already exist');
-    }
+  .then(userRestaurant => {
+    res.status(200).send('User restaurant created!')
   })
   .catch(err => {
-    res.status(400).send('Unable to create user restaurant')
+    res.status(400).send('Unable to create user_restaurant');
     console.error(err);
   })
 })
 
-//update a user_restaurant_order
+//update a user_restaurant
 router.patch('/', (req, res) => {
   User_Restaurant.update({
     restaurant_id: req.query.updated_restaurant_id,
@@ -98,7 +108,7 @@ router.patch('/', (req, res) => {
   })
 })
 
-//delete a user_restaurant_order
+//delete a user_restaurant
 router.delete('/', (req, res) => {
   User_Restaurant.destroy({
     where: {

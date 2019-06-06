@@ -66,8 +66,9 @@ router.post('/', (req, res) => {
     tips: req.query.tips,
     rating: req.query.rating,
     date: req.query.date,
+    restaurant_id: req.query.restaurant_id
   })
-  .spread((order, created) => {
+  .then(([order, created]) => {
     console.log(order.get({
       plain: true
     }))
@@ -90,6 +91,7 @@ router.patch('/', (req, res) => {
     tips: req.query.updated_tips,
     rating: req.query.updated_rating,
     date: req.query.updated_date,
+    restaurant_id: req.query.updated_restaurant_id
   }, {
     where: {
       id: req.query.id,
