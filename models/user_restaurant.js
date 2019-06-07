@@ -9,19 +9,21 @@ const User_Restaurant = db.define('user_restaurant', {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-  }
+  }, 
+  restaurant_id: Sequelize.INTEGER,
+  user_id: Sequelize.INTEGER,
 }, {
   underscored: true
 });
 
-Restaurant.belongsToMany(User, {
-  through: User_Restaurant,
-  foreignKey: 'restaurant_id'
-})
+// Restaurant.belongsToMany(User, {
+//   through: User_Restaurant,
+//   foreignKey: 'restaurant_id'
+// })
 
-User.belongsToMany(Restaurant, {
-  through: User_Restaurant,
-  foreignKey: 'user_id'
-})
+// User.belongsToMany(Restaurant, {
+//   through: User_Restaurant,
+//   foreignKey: 'user_id'
+// })
 
 module.exports = User_Restaurant;

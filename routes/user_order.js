@@ -57,27 +57,6 @@ router.get('/search', (req, res) => {
 })
 
 //create a user_order
-// router.post('/', (req, res) => {
-//   User_Order.create({
-//     order_id: req.query.order_id,
-//     user_id: req.query.user_id,
-//   })
-//   .then(([userOrder, created]) => {
-//     console.log(userOrder.get({
-//       plain: true
-//     }))
-//     if (created) {
-//       res.json('user order created');
-//     } else {
-//       res.json('user order already exist');
-//     }
-//   })
-//   .catch(err => {
-//     res.status(400).send('Unable to create user order')
-//     console.error(err);
-//   })
-// })
-
 router.post('/', (req, res) => {
   Promise.all([
     User.findOrCreate({
@@ -87,7 +66,7 @@ router.post('/', (req, res) => {
     }), 
     Order.findOrCreate({
       where: {
-        order_id: req.query.order_id
+        id: req.query.order_id
       }
     })
   ])

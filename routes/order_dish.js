@@ -4,6 +4,8 @@ const serialize = require('express-serializer');
 const db = require('../config/db');
 
 const Order_Dish = require('../models/order_dish');
+const Order = require('../models/order');
+const Dish = require('../models/dish');
 
 /*
 since /order_dish is being pointed to this file, 
@@ -12,11 +14,11 @@ get '/' will refer to /order_dish
 
 //serialize order_dish
 function orderDishSerializer(req, orderDish) {
-  const { id, dishes_id, order_id, createdAt, updatedAt} = orderDish;
+  const { id, dish_id, order_id, createdAt, updatedAt} = orderDish;
 
   return {
     id,
-    dishes_id,
+    dish_id,
     order_id, 
     createdAt,
     updatedAt
@@ -40,7 +42,7 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
   Order_Dish.findOne({
     where: {
-      dishes_id: req.query.dishes_id,
+      dish_id: req.query.dish_id,
       order_id: req.query.order_id
     }
   })
@@ -57,36 +59,49 @@ router.get('/search', (req, res) => {
 
 //create a order_dish
 router.post('/', (req, res) => {
-  Order_Dish.findOrCreate({
-    where: {
-      dishes_id: req.query.dishes_id,
-      order_id: req.query.order_id
-    }
-  })
-  .then(([orderDish, created]) => {
-    console.log(orderDish.get({
-      plain: true
-    }))
-    if (created) {
-      res.json('order dish created');
-    } else {
-      res.json('order dish already exist');
-    }
+  Promise.all([
+    Order.findOrCreate({
+      where: {
+        id: req.query.order_id
+      }
+    }), 
+    Dish.findOrCreate({
+      where: {
+        id: req.query.dish_id
+      }
+    })
+  ])
+  .then(([order, dish]) => {
+    const dishCost = Number(dish[0].getDataValue('dish_cost'));
+    const originalCost = Number(order[0].getDataValue('cost'));
+    const updatedCost = dishCost + originalCost;
+    
+    return Promise.all([
+      order[0].update({
+        cost: updatedCost
+      }),
+      Order_Dish.create({
+        order_id: order[0].id,
+        dish_id: dish[0].id
+      })
+    ]).then(([order, dish]) => {
+      res.status(200).send('Order_Dish created!');
+    })
   })
   .catch(err => {
-    res.status(400).send('Unable to create order dish')
-    console.error(err);
+    res.status(400).send('Unable to create Order_Dish');
+    console.error(err)
   })
 })
 
 //update a order_dish
 router.patch('/', (req, res) => {
   Order_Dish.update({
-    dishes_id: req.query.updated_dishes_id,
+    dish_id: req.query.updated_dishes_id,
     order_id: req.query.updated_order_id
   }, {
     where: {
-      dishes_id: req.query.original_dishes_id,
+      dish_id: req.query.original_dishes_id,
       order_id: req.query.original_order_id
     },
     returning: true

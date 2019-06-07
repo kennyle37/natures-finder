@@ -1,9 +1,16 @@
+const Sequelize = require('sequelize');
 const db = require('../config/db');
 
 const User = require('./user');
 const Order = require('./order');
 
-const User_Order = db.define('user_order', {}, {
+const User_Order = db.define('user_order', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  }
+}, {
   underscored: true
 })
 
