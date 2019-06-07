@@ -10,7 +10,11 @@ const State = db.define('state', {
       notEmpty: true
     }
   },
-})
+}, 
+{
+  underscored: true
+}
+)
 
 State.belongsTo(Country, {
   foreignKey: 'country_id',

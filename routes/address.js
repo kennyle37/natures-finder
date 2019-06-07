@@ -14,9 +14,10 @@ get '/' will refer to /address
 
 //serialize address
 function serializeAddress(req, address) {
-  const { address_1, address_2, state_id, city_id, zipcode, createdAt, updatedAt } = address;
+  const { id, address_1, address_2, state_id, city_id, zipcode, createdAt, updatedAt } = address;
 
   return {
+    id,
     address_1,
     address_2,
     state_id,
@@ -74,7 +75,7 @@ router.post('/', (req, res) => {
     },
     include: [ City, State ]
   })
-  .spread((address,created) => {
+  .then(([address,created]) => {
     console.log(address.get({
       plain: true
     }))

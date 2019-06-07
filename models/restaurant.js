@@ -4,15 +4,20 @@ const db = require('../config/db');
 const Food_Category = require('./food_category');
 const Dining_Category = require('./dining_category');
 const Address = require('./address');
+const Order = require('./order');
 
 const Restaurant = db.define('restaurant', {
-  name: {
+  restaurant_name: {
     type: Sequelize.STRING,
     validate: {
       notEmpty: true
     }
   }
-});
+}, 
+  {
+    underscored: true
+  }
+);
 
 Restaurant.belongsTo(Food_Category, {
   foreignKey: 'food_category_id',
@@ -28,5 +33,7 @@ Restaurant.belongsTo(Address, {
   foreignKey: 'address_id',
   targetKey: 'id'
 })
+
+Restaurant.hasMany(Order)
 
 module.exports = Restaurant;

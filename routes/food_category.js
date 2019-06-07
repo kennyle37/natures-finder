@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
       name: req.query.name,
     }
   })
-  .spread((foodCategory, created) => {
+  .then(([foodCategory, created]) => {
     console.log(foodCategory.get({
       plain: true
     }))

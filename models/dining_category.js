@@ -8,6 +8,10 @@ const Dining_Category = db.define('dining_category', {
       notEmpty: true
     }
   }
-});
+},   
+  {
+    underscored: true
+  }
+);
 
 module.exports = Dining_Category;

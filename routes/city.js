@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
     },
     include: [ State ]
   })
-  .spread((city, created) => {
+  .then(([city, created]) => {
     console.log(city.get({
       plain: true
     }))

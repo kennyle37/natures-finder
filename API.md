@@ -26,6 +26,7 @@ Create a user
 | email (required)  | string | 
 | first_name   | string | 
 | last_name   | string | 
+| address_id   | int | 
 
 -----
 
@@ -39,6 +40,7 @@ Search a user by their original email and then update their profile
 | updated_email   | string | 
 | updated_first_name   | string | 
 | updated_last_name   | string | 
+| updated_address_id   | int | 
 
 -----
 
@@ -443,6 +445,9 @@ Create a Restaurant
 | Fields  | Type   | 
 | --------|:------:| 
 | name (required)  | string |
+| dining_category_id | int |
+| food_category_id | int |
+
 
 -----
 
@@ -454,6 +459,8 @@ Search a Restaurant by its original name and then update its name
 | --------|:------:| 
 | original_name (required)  | string | 
 | updated_name (required)  | string | 
+| updated_dining_category_id | int |
+| updated_food_category_id | int |
 
 -----
 

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const db = require('../config/db');
-const models = require('../models');
+const models = require('../models/index[LEGACY]');
 
 //authenticate and connect to db
 db
@@ -12,10 +12,7 @@ db
   .then(() => {
     console.log('Success! Database connected');
     db.sync({ force: true }).then(() => {
-      console.log('db synced!')
-    })
-    .catch(err => {
-      console.error('could not sync db', err);
+      console.log('Data base connected! Beep boop beep boop!')
     })
   })
   .catch(err => {
@@ -66,5 +63,15 @@ app.use('/api/restaurant', require('../routes/restaurant'));
 
 //routes for our state
 app.use('/api/state', require('../routes/state'));
+
+//routes for our order_dish
+app.use('/api/order_dish', require('../routes/order_dish'));
+
+//routes for our user_restaurant
+app.use('/api/user_restaurant', require('../routes/user_restaurant'));
+
+//routes for our user_order
+app.use('/api/user_order', require('../routes/user_order'));
+
 
 
